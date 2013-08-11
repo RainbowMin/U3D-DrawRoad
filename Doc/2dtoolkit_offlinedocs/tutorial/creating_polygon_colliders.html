@@ -1,0 +1,46 @@
+<html>
+<head><title>Creating Polygon Colliders</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Creating Polygon Colliders</h1>
+
+<ol>
+<li><p>Add an instance of the rock sprite to the scene. Refer to <a href="creating_a_sprite_in_the_editor.html">Creating a sprite in the editor</a> if you need detailed steps in doing this.</p>
+
+<p><img src="img/CreatingRock.png" alt="img/CreatingRock.png"></p></li>
+<li><p>This sprite won't be represented well by a box, so we will create a polygon collider instead. Select the sprite collection and click "Open Editor...".</p></li>
+<li><p>Select the rock sprite in the sprite collection editor.</p>
+
+<p><img src="img/SelectRock.png" alt="img/SelectRock.png"></p></li>
+<li><p>Switch the Collider Type to Polygon. This will give you a box covering the entire texture. We will be shaping this rock to better suit the shape of the rock.</p>
+
+<p><img src="img/SwitchToPolygon.png" alt="img/SwitchToPolygon.png"></p></li>
+<li><p>Switch the sprite view to collider edit mode.</p>
+
+<p><img src="img/ColliderEditMode.png" alt="img/ColliderEditMode.png"></p></li>
+<li><p>Roughly match the shape by moving the polygon control points. Simply click and drag them to the desired position. Dont forget that you can zoom in using the mouse wheel or the 2 finger scroll gesture on Mac.</p></li>
+<li><p><strong>Double click</strong> on an edge to add a control point. Click and drag this to position it. More shortcut keys are listed in the right panel.</p></li>
+<li><p>Repeat the previous step until you have a suitable shape to represent this rock.</p>
+
+<p><img src="img/PolygonFinal.png" alt="img/PolygonFinal.png"></p></li>
+<li><p>Click commit to save your changes. The rock in the scene should now contain a mesh collider with the shape you defined.</p>
+
+<p><img src="img/PolygonScene.png" alt="img/PolygonScene.png"></p></li>
+</ol>
+
+<blockquote>
+  <p>Note: It is not possible to animate polygon colliders at the moment. 2D Toolkit will create the first collider and will not animate it.</p>
+</blockquote>
+</div></body></html></body>
+</html>

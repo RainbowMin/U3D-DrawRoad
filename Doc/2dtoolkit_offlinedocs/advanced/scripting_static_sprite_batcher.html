@@ -1,0 +1,74 @@
+<html>
+<head><title>Scripting a Static Sprite Batcher</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Scripting a Static Sprite Batcher</h1>
+
+<p>You can generate a static sprite batcher in code. This lets you create complex static geometry quickly - often far more efficiently than creating the same number of loose sprites. Use something like this when you need to build a static game board procedurally from script, etc.</p>
+
+<div class="codefile"><a href="code/DynamicCreateBatcher.cs">code/DynamicCreateBatcher.cs</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> UnityEngine;
+<span style="color:Blue;">using</span> System.Collections;
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">class</span> DynamicCreateBatcher : MonoBehaviour {
+
+    <span style="color:Green;">// we are just using one sprite collection for all sprites here, but</span>
+    <span style="color:Green;">// you can have as many as you like.</span>
+    <span style="color:Blue;">public</span> tk2dSpriteCollectionData spriteCollection;
+
+    <span style="color:Blue;">void</span> Awake() {
+        GameObject go = <span style="color:Blue;">new</span> GameObject();
+
+        tk2dStaticSpriteBatcher batcher = go.AddComponent&lt;tk2dStaticSpriteBatcher&gt;();
+        batcher.batchedSprites = <span style="color:Blue;">new</span> tk2dBatchedSprite[20];
+
+        <span style="color:Blue;">for</span> (<span style="color:Blue;">int</span> i = 0; i &lt; batcher.batchedSprites.Length; ++i) {
+            tk2dBatchedSprite bs = <span style="color:Blue;">new</span> tk2dBatchedSprite();
+
+            <span style="color:Green;">// assign sprite collection and sprite Id for this batched sprite</span>
+            bs.spriteCollection = spriteCollection;
+            bs.spriteId = spriteCollection.GetSpriteIdByName(<span style="color:#A31515;">&quot;crate&quot;</span>);
+
+            Vector3 pos = <span style="color:Blue;">new</span> Vector3((i - batcher.batchedSprites.Length / 2) * 0.1f, Random.value * 0.2f, 0);
+
+            <span style="color:Green;">// Assign the relative matrix. Use this in place of bs.position</span>
+            bs.relativeMatrix.SetTRS(pos, Quaternion.identity, Vector3.one);
+
+            batcher.batchedSprites[i] = bs;
+        }
+
+        <span style="color:Green;">// Don't create colliders when you don't need them. It is very expensive to</span>
+        <span style="color:Green;">// generate colliders at runtime.</span>
+        batcher.SetFlag( tk2dStaticSpriteBatcher.Flags.GenerateCollider, <span style="color:Blue;">false</span> );
+
+        batcher.Build();
+    }
+}
+</pre></div>
+
+<p>This example uses the relativeMatrix.SetTRS pattern to set the relative matrix of each of these objects. The relative matrix is relative to the position of the static sprite batcher, setting a TRS of Vector3(0, 0, 0) will create the sprite at the location of the static sprite batcher, allowing you to move it where you need to later. You can simply use whatever value you used for position using the older system.</p>
+
+<p>If you have legacy code you wish to port - simply call batcher.UpdateMatrices(); before batcher.Build() to update the matrices appropriately.</p>
+
+<p>As of 2D Toolkit 2.0, each entry in the static sprite batcher can have its own sprite collection. Keep in mind that this will add draw calls to the batcher.</p>
+
+<blockquote>
+  <p>Note: Turn off collider generation () when you do not need them - normal colliders are merged into a mesh collider in the static sprite batcher, and this can be quite expensive to generate.</p>
+</blockquote>
+
+<p><strong>You can also add text meshes, sliced sprites, etc. but these aren't officialy supported and are subject to change.</strong></p>
+</div></body></html></body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head><title>Whack a Mole Tutorial</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../../dot.png">
+<a href="../../index.html">Documentation</a>
+<img src="../../dot.png">
+<a href="../../html/annotated.html">Script Reference</a>
+<img src="../../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Whack a Mole Tutorial</h1>
+
+<h3>Scripting</h3>
+
+<ol>
+<li><p>To make life easy for us (again), in the Hierarchy window click on 'Create > tk2d > Empty GameObject' and rename this new object to 'MoleUnit' (although the name isn't important).</p></li>
+<li><p>In the Inspector window for your newly created GameObject, set the Transform X, Y and Z Position co-ordinates to that of your mole hole.</p></li>
+<li><p>In the Hierarchy window, drag the mole hole onto the MoleUnit game object you have just created.  The mole and dirt game objects will automatically follow.  </p>
+
+<p><img src="img/moleunit_in_hierarchy_highlight_and_inspector.png" alt="img/moleunit<em>in</em>hierarchy<em>highlight</em>and_inspector.png">  </p>
+
+<blockquote>
+  <p>Tip: If you are using X and Y values that aren't easy to type in (e.g they have lots of decimal places), another way to achieve this is to:</p>
+  
+  <ul>
+  <li><p>Drag the empty GameObject onto the mole hole object in the hierarchy window; the X and Y values for the empty GameObject should change.</p></li>
+  <li><p>Select the emtpy GameObject, and in the Inspector window change the X and Y values to 0.</p></li>
+  <li><p>In the hierarchy window, select and drag the emtpy GameObject so it is no longer a child of the mole hole.  It should now have the same X and Y values as the mole hole.</p></li>
+  <li><p>Finally, select and drag the mole hole onto the emtpy GameObject.  The mole hole will now be a child of the emtpy GameObject and the X and Y values of the hole should now be zero.  </p></li>
+  </ul>
+</blockquote></li>
+<li><p>In the Project window, click on 'Create > Folder' and name the new folder 'Scripts'.  (Again, not necessary but it keeps things tidy)</p></li>
+<li><p>Select the Scripts folder you have just created then click on 'Create > C# Script', and name the script MoleScript.<br>
+<img src="img/create_script.png" alt="img/create_script.png"></p></li>
+<li><p>Edit the script and put the following code in there:<br>
+<a href="code/MoleScript.cs">MoleScript C# version</a></p>
+
+<blockquote>
+  <p>If you prefer, you can use the Javascript (UnityScript) version of the code.  Instead of selecting 'Create > C# Script', select 'Create > Javascript' instead.  The Javascript version of the code can be found <a href="code/MoleScript.js">here</a>.  As the td2k source files are written in C#, in order that they work with any Javascript files you create, from the Unity menu bar select '2D Toolkit > SetupForJS'.</p>
+</blockquote></li>
+<li><p>Whilst we're at it, create another C# script in the Project window and call it MainGameScript.  Then edit the script and put the following code in there: <a href="code/MainGameScript.cs">MainGameScript</a>.  We will be looking at this script in more detail in the next section, but for now we need it in order to get the MoleScript to compile as it is dependent on it.</p>
+
+<blockquote>
+  <p>You can find the UnityScript version of MainGameScript <a href="code/MainGameScript.js">here</a></p>
+</blockquote></li>
+<li><p>Once you have saved both scripts, select the MoleScript in the Project window then drag it onto the MoleUnit object in the Hierarchy window.  The script will now be attached to that object.<br>
+<img src="img/moleunit_in_hierarchy_and_inspector_script_highlight.png" alt="img/moleunit<em>in</em>hierarchy<em>and</em>inspector<em>script</em>highlight.png"></p></li>
+<li><p>As the script contains a public variable named Sprite of type tk2dClippedSprite, it will allow us to associate the Mole sprite with the script.  In the Hierarchy window, select the MoleUnit game object then click and drag the Mole object into the Sprite field in the Mole Script.<br>
+<img src="img/script_with_mole_attached.png" alt="img/script<em>with</em>mole_attached.png"></p></li>
+</ol>
+
+<p>For an explanation of what the Mole Script does and how it works, go <a href="molescript_summary.html">here</a></p>
+
+<p>You can download the whack-a-mole package with what we have done so far from <a href="http://www.2dtoolkit.com/docs_extras/wam_tutorial21/Scripting_Complete.unitypackage">here</a> if you want to compare your project with ours.</p>
+
+<p><a href="rest_of_game.html">Next Page: Finishing Off</a></p>
+</div></body></html></body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+<head><title>Customizing a Basic Button</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Customizing a Basic Button</h1>
+
+<ol>
+<li><p>Follow instructions in 'Setting up UI' tutorial.</p></li>
+<li><p>Click on BasicButton object in the Hierarchy Window</p></li>
+<li><p>To change text, in the Hierarchy drill down under BasicButton, then under ButtonGraphic to find Text.</p></li>
+<li><p>Select Text GameObject in the Hierarchy.  Edit the 'Text' field in the  'Tk 2d TextMesh' in the inspector.<br>
+<img src="img/2_customizing_text.png" alt="Customizing text"></p></li>
+<li><p>To change button size or graphics - Select ButtonGraphic in the Hierarchy (child of BasicButton). Edit the sprite in 'Tk 2d Sliced Sprite' and/or change the Dimensions (Pixel Units) to change the width and height.</p></li>
+<li><p>Once you have changed the size of the graphics, you are likely to want the collider on the button to fit. Select the "BasicButton" object, and click on the Collider > Automatic Fit > Fit button as shown below. This will automatically fit the collider on the button to the sprites / text.<br>
+<img src="img/2_fit_collider.png" alt="Fit collider">  </p>
+
+<blockquote>
+  <p>You can fix colliders on multiple items or hierarchy of UI elements at a time by selecting the root object and invoking the "2D Toolkit > UI > Fix Selected Item Bounds". This will fix all selected UI items and their children.</p>
+</blockquote></li>
+<li><p>To change the sound click on 'BasicButton' in the Hierarchy and in the inspector there is a 'Tk 2d Sound Button'. You can added/remove/change audio clips here.<br>
+<img src="img/2_sound.png" alt="Sound"></p></li>
+<li><p>You are free to customize the button in any way you like - you can add multiple sprites, use clipped sprites, change collider types, etc. Check the other button prefab types for other things that can be built with this basic building block.</p></li>
+</ol>
+</div></body></html></body>
+</html>

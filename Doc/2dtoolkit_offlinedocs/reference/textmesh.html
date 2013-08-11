@@ -1,0 +1,48 @@
+<html>
+<head><title>TextMesh</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>TextMesh</h1>
+
+<p><img src="img/textmesh.png" alt="TextMesh"></p>
+
+<p><strong>Font</strong> - Select a font from the project.</p>
+
+<p><strong>Max Chars</strong> - Number of character to allocate memory for. The TextMesh will not display more than this number of characters. It is not a good idea to change this while the game is running.</p>
+
+<p><strong>Fit</strong> - Automatically select the appropriate number of Max Chars based on the text in the Text box below.</p>
+
+<p><strong>Text</strong> - Default text to display</p>
+
+<p><strong>Anchor</strong> - Anchor point for the text</p>
+
+<p><strong>Kerning</strong> - Enable or disable kerning on this TextMesh. It is a lot quicker to have kerning disabled, so only turn it on when really needed.</p>
+
+<p><strong>Scale</strong> - Scale the text mesh without breaking instancing.</p>
+
+<p><strong>Texture Gradient</strong> - Select a text gradient to use for this text mesh</p>
+
+<p><strong>Inline Styling</strong> - When ticked, will intepret ^0 - ^9 within your string to select the first 10 gradients in your list. You do not need 10 gradients in your list, this index simply lets you chose up to 10 of them. If you need to draw the ^ character with Inline Styling enabled, use ^^ instead.</p>
+
+<p><strong>1:1</strong> - Clicking this will make the textmesh draw pixel perfect for the current main camera. If Always is selected, this sprite will resize itself to display 1:1 on startup. This will change the scale parameter.</p>
+
+<ul>
+<li>Always - Always keeps this text mesh pixel perfect. This is deprecated - the recommended way to get always pixel perfect text meshes is to use tk2dCamera.</li>
+</ul>
+
+<p><strong>Bake Scale</strong> - Transfers transform.localScale to textMesh.scale and resets transform.localScale to 1, 1, 1. This lets you use the built in unity scale widgets, and clicking on Bake Scale will recursively transfer all localScale values, so dynamic batching will work once more.</p>
+
+<p><strong>Use Gradient and Colors</strong> - Color your text, or apply a vertical gradient on it.</p>
+</div></body></html></body>
+</html>

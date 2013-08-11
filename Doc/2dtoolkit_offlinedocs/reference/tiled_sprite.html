@@ -1,0 +1,34 @@
+<html>
+<head><title>Tiled Sprite</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Tiled Sprite</h1>
+
+<p><img src="img/tiledsprite.png" alt="Tiled Sprite"></p>
+
+<p><strong>Create Box Collider</strong> - If ticked, a tight fitting box collider will be created around this sprite. You can adjust the collider depth on the collider itself.</p>
+
+<p><strong>Anchor</strong> - Selects the anchor for this sliced sprite.</p>
+
+<p><strong>Dimensions (Pixel Units)</strong> - This is the dimensions of the sliced sprite in pixel units. Pixel units in this case are pixels in the source texture. So, if your sliced sprite source image is 8x8, then if the dimensions were set to 8x8, the size of the sprite would match the original sprite itself. A size of 16x16 would make it twice the size of the original sprite.</p>
+
+<p>You can also use the scale parameter to uniformly scale the entire sliced sprite, much like how transform.scale works.</p>
+
+<p><strong>Triangles</strong> - Tells you how many triangles are required to render this tiled sprite. The more the tiling, the more triangles will be required. A sensible upper limit is around 1000 triangles, but of course this very much depends on what else you're doing in your scene / game.</p>
+
+<p>You can also adjust the tiling of the sliced sprite by dragging the handles in scene view.</p>
+
+<p><img src="img/tiledsprite_handle.png" alt="TiledSpriteHandles"></p>
+</div></body></html></body>
+</html>

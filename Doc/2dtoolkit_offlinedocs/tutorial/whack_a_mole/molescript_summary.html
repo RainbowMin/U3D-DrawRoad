@@ -1,0 +1,251 @@
+<html>
+<head><title>Whack a Mole Tutorial</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../../dot.png">
+<a href="../../index.html">Documentation</a>
+<img src="../../dot.png">
+<a href="../../html/annotated.html">Script Reference</a>
+<img src="../../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Whack a Mole Tutorial</h1>
+
+<h2>MoleScript</h2>
+
+<p>Here, we're going to be looking a bit more in depth at what the MoleScript does and how it works.</p>
+
+<p>In Unity, you can have many scripts and attach them to different game objects so each object has it's own behaviour, and in our game the MoleScript controls the mole objects.</p>
+
+<p>The behaviour we want from them is fairly simple:  the mole comes out of the hole, waits to be hit, and goes back in the hole.  There's a little bit more to it than that, but essentially that is what we want.  You can see the complete version of the script <a href="code/MoleScript.cs">here</a>, but for discussion purposes we will break it down into separate parts.</p>
+
+<h2>Overview</h2>
+
+<p>If you have scripted in Unity before, you will more than likely be aware of the 'Update' function that gets called and executed every frame of the game.  Whilst we could utilize this functionality in the script, we are going to take a different approach that should make the sprite easier to code.</p>
+
+<p>As mentioned before, the behaviour of the mole will be to rise out of the hole, wait, and go back down into the hole.  If we implement this functionality within the 'Update' function, whilst we can do it, it would involve use of a few more variables to hold timers and flags and whatnot for when we need to check the status of the sprite.</p>
+
+<p>Instead we are going to use Coroutines.  If you've never used them before they can be a bit tricky to understand, but essentially we will be using them to make the mole complete one action before it continues onto the next.  More details about Coroutines can be found <a href="http://docs.unity3d.com/Documentation/ScriptReference/index.Coroutines_26_Yield.html">here</a>.  In short, though, it allows us to leave a function part-way through and pick up where we left off.</p>
+
+<p>Onto the code...</p>
+
+<h2>Class Variables</h2>
+
+<h3>public tk2dClippedSprite sprite</h3>
+
+<p>This is the variable that holds the mole sprite itself.  The sprite is of type tk2dClippedSprite and we make it public so we can easily drag and drop the mole sprite on to the script in the Unity interface.  We could make it private and get the mole object using code, but why make things difficult on ourselves?</p>
+
+<h3>private float height</h3>
+
+<p>This holds the height of the mole image.  We need to use this to help us to calculate where the mole is to be drawn on screen.</p>
+
+<h3>private float speed</h3>
+
+<p>The speed at which the mole travels up and down.  </p>
+
+<h3>private float timeLimit</h3>
+
+<p>I've added this variable so we can specify how long the mole waits to be hit.  The value can be adjusted to make things easier or more difficult.</p>
+
+<h3>private Rect spriteRec</h3>
+
+<p>An invisible rectangle surrounds our sprite enclosing it completely, essentially giving us the mininum and maximum X and Y co-ordinates for our sprite based on its current clipping - the more the sprite is clipped, the smaller the rectangle will be.  A value of 1 means the sprite has been completely clipped and a value of 0 means the sprite is not clipped at all. We store this information in the spriteRec variable.  </p>
+
+<h3>private bool whacked</h3>
+
+<p>Holds whether or not the mole has been whacked on its current animation.</p>
+
+<h3>private float transformY</h3>
+
+<p>The height (Y position) at which we will be drawing the mole sprite on the screen.</p>
+
+<h2>Functions</h2>
+
+<h3>void Start()</h3>
+
+<p>We are using the Unity 'Start' function to get and set values we need for our mole sprite.  We could potentially have done this in the 'Awake' function, but there is a reason we're not doing this which we'll discuss later on.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">void</span> Start()
+    {
+        timeLimit = 1.0f;
+        speed = 2.0f;
+</pre></div>
+
+<p>Set up the values for the timeLimit and speed values.  We are going to be updating are timeLimit value from the Trigger function anyway, but it does no harm to give it an initial value.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+        Bounds bounds = sprite.GetUntrimmedBounds();
+        height = bounds.max.y - bounds.min.y;
+</pre></div>
+
+<p>Here we get the bounds of the mole sprite.  We need to know the height of the sprite in order to know where to place it on the screen relative to the hole.  By minusing the minimum Y value from the maximum, we get the height.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+        spriteRec = sprite.ClipRect;
+        spriteRec.y = 1.0f;
+        sprite.ClipRect = spriteRec;
+</pre></div>
+
+<p>When the game starts, all moles will be in their holes and none of them will be drawn.  We will apply full clipping on the Y axis for the mole which is set here.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+        Vector3 localPos = sprite.transform.localPosition;
+        transformY = localPos.y;
+        localPos.y = transformY - (height * sprite.ClipRect.y);
+        sprite.transform.localPosition = localPos;
+</pre></div>
+
+<p>When we made our initial 'MoleUnit', the mole was placed so it was out of its hole.  We make a note of this initial position, which is the relative position of the mole to the whole i.e. localPosition, and we can use it to calculate where we need to position the mole during the various stages of its animation.  We then calculate what the Y position of the mole needs to be so that it is 'in' the hole, and then assign it back to the sprite.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+        sprite.gameObject.SetActive (<span style="color:Blue;">false</span>);
+</pre></div>
+
+<p>We then set the mole to inactive for the start of the game,</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+        MainGameScript.instance.RegisterMole( <span style="color:Blue;">this</span> );
+   }
+</pre></div>
+
+<p>and finally we register this instance of the mole with the main game script.  By doing it this way we can easily change the amount of moles we have in our game, as each one takes responsibility for making itself know to the main game script.  As we are dependent on the main game script existing before we can register to it, we can ensure this behaviour by putting the mole set up code in the 'Start' function: in Unity, the Start functions of the various scripts are always called <em>after</em> the awake functions - so as long as we make sure the main game scripts instance is set in 'Awake', then we will be okay when we register the mole sprites with in in 'Start'.</p>
+
+<h3>public void Trigger(float tl)</h3>
+
+<p>The Trigger function will be called from the main game script (found <a href="gamescript_summary.html">here</a>) when we wish to animate a mole from it's hole.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">public</span> <span style="color:Blue;">void</span> Trigger(<span style="color:Blue;">float</span> tl)
+    {
+        sprite.gameObject.SetActive (<span style="color:Blue;">true</span>);
+        whacked = <span style="color:Blue;">false</span>;
+        sprite.SetSprite(<span style="color:#A31515;">&quot;Mole_Normal&quot;</span>);
+        timeLimit = tl;
+        StartCoroutine (MainLoop());
+    }
+</pre></div>
+
+<p>At this point in the game, the mole will be in its hole and inactive.  Firstly we set the sprite to active and set the whacked variable to false.  Because the mole hasn't been whacked yet, we set the sprite to the un-whacked one which we will then change later if the mole gets whacked.  We then store the amount of time the mole will wait for to receive its whack, which is passed to from the main game function and can be changed.  </p>
+
+<p>Once all these values have been set we then use the <a href="http://docs.unity3d.com/Documentation/ScriptReference/MonoBehaviour.StartCoroutine.html">StartCoroutine</a> function to start off the animation cycle, using the MainLoop() function as a parameter.</p>
+
+<h3>private IEnumerator MoveUp()</h3>
+
+<p>This function is used to move the mole out of the hole, until it reaches the top of its animation.  Notice how the return type of the function is IEnumerator?  All you need to know for now is that all functions that are used as Coroutines have this return type.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator MoveUp()
+    {   
+        <span style="color:Blue;">while</span>(spriteRec.y &gt; 0.0f)
+        {
+            spriteRec = sprite.ClipRect;
+            <span style="color:Blue;">float</span> newYPos = spriteRec.y - speed * Time.deltaTime;
+            spriteRec.y = newYPos &lt; 0.0f ? 0.0f : newYPos;
+            sprite.ClipRect = spriteRec;
+
+            Vector3 localPos = sprite.transform.localPosition;
+            localPos.y = transformY - (height * sprite.ClipRect.y);
+            sprite.transform.localPosition = localPos;
+
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;
+        }
+    }
+</pre></div>
+
+<p>Earlier I said that a zero value on the clipped rectangle means that the sprite hasn't been clipped at all.  So the while loop we're using here checks to see if we have reached a point of 'no clipping', which will mean the mole is fully out of the hole (i.e. the full sprite is being drawn).</p>
+
+<p>Inside the while loop, the first thing we do is get the current clipping rectangle for the sprite, then update the amount of clipping applied to the sprite based on the speed we have set.  As the mole is moving up and down the screen, we are only adjusting the Y axis value.  </p>
+
+<p>Note  Although we could potentially use the 'speed' variable by itself to update the sprite clipping, this is not the best idea;  the sprite would move faster on fast machines than on slower ones.  Therefore we use the Unity Time.deltaTime variable so the animation will be the same speed regardless of the speed of the machine.   </p>
+
+<p>We then check that the new Y value hasn't gone below zero (and if it has, we set it to zero) and update the sprite's clipping rectangle.  </p>
+
+<p>Now that we have worked out the new clipping rectangle, we also need to adjust the position of the sprite on the screen.  As we are clipping the sprite from the bottom (we don't want it to be missing the top of its head after all), we need to ensure the new bottom is aligned with the hole; if we don't move the sprite, the bottom will just extend downwards below the hole.  In order to do this, we get the curent position of the sprite (note, we are using 'localPosition' rather than 'position' of the sprite, as we are drawing the sprite relative to the MoleUnit object), then calculate its new 'Y' position with the line localPos.y = transformY - (height * sprite.ClipRect.y).  </p>
+
+<blockquote>
+  <p>A bit of explanation may be necessary for this <em>(and note, this is based on the anchor of the mole being in the middle of the sprite)</em>.  If, for example, our mole is 200 units in height, the initial Y position for it will be at 100 relative to the hole - which is our transformY value (remember, our anchor is in the middle of the sprite).  If we only wanted to draw the top quarter of the mole sprite (200 / 4 = 50 units), we need to clip 150 units of it, or 75% of it, therefore the calculation would be 100 - (200 * 0.75) = -50.  So the center of our mole sprite is now -50 units compared to the hole, 50 units up to the hole are being clipped, leaving the final 50 units of the mole sprite to be drawn above the hole.</p>
+</blockquote>
+
+<p>We now re-assign the local position, with its updated Y co-ordinates back to the sprite so the next time it is drawn it will be in its new position.</p>
+
+<p>Finally we make a call to 'yield return null'.   This hands back control to the calling function, but will allow the MoveUp function to be picked up again from this point next time around.  Essentially, we are waiting for the sprite to reach the top of its animation before we do anything else to it.</p>
+
+<h3>private IEnumerator MoveDown()</h3>
+
+<p>The MoveDown function is much like the 'MoveUp' function, except that it moves the mole sprite down rather than up, surprisingly enough.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator MoveDown()
+    {       
+        <span style="color:Blue;">while</span>(spriteRec.y &lt; 1.0f)
+        { 
+            spriteRec = sprite.ClipRect;
+            <span style="color:Blue;">float</span> newYPos = spriteRec.y + speed * Time.deltaTime;
+            spriteRec.y = newYPos &gt; 1.0f ? 1.0f : newYPos;
+            sprite.ClipRect = spriteRec;
+
+            Vector3 localPos = sprite.transform.localPosition;
+            localPos.y = transformY - (height * sprite.ClipRect.y);
+            sprite.transform.localPosition = localPos;
+
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;
+        }
+
+        sprite.gameObject.SetActive(<span style="color:Blue;">false</span>);
+    }
+</pre></div>
+
+<p>The while loop is now checking that the clipped Y value is less than 1.  Once the clipped Y value reaches 1, we know that the mole sprite if fully clipped and is back in its hole.  The rest of the functionality is pretty much the same except we are increasing the clipped Y value and moving the sprite down the screen.</p>
+
+<p>The only addition here is the sprite.gameObject.SetActive(false) line outside the while loop.  Once we have finished moving the sprite, we are going to disable it until the next time it is triggered.</p>
+
+<h3>private IEnumerator WaitForHit()</h3>
+
+<p>When the mole sprite has reached the top of its animation, we want it to pause to give it a chance to be whacked.  Usually if we wanted a pause, we could use a 'yield return new WaitForSeconds( &lt; seconds > )', but as we might want to stop the pause prematurely if the mole has been whacked, we'll do it a slightly different way.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator WaitForHit()
+    {
+        <span style="color:Blue;">float</span> time = 0.0f;
+
+        <span style="color:Blue;">while</span>(!whacked &amp;&amp; time &lt; timeLimit)
+        {
+            time += Time.deltaTime;
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;
+        }
+    }
+</pre></div>
+
+<p>The while loop will continue as long as we are under the pause time limit and the mole hasn't been whacked.</p>
+
+<h3>private IEnumerator MainLoop()</h3>
+
+<p>This function controls the actions of the mole sprite, moving it up, waiting, then moving it down.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator MainLoop()
+    {
+        yield <span style="color:Blue;">return</span> StartCoroutine(MoveUp());
+        yield <span style="color:Blue;">return</span> StartCoroutine(WaitForHit());
+        yield <span style="color:Blue;">return</span> StartCoroutine(MoveDown());
+    }
+</pre></div>
+
+<h3>public void Whack()</h3>
+
+<p>The check to see whether or not a mole has been hit is done in the main game script.  If a whack has been detected, it will call this function which changes the sprite of the mole from the 'normal' one to the 'hit' one.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">public</span> <span style="color:Blue;">void</span> Whack()
+    {
+        whacked = <span style="color:Blue;">true</span>;
+        sprite.SetSprite(<span style="color:#A31515;">&quot;Mole_Hit&quot;</span>);
+    }
+</pre></div>
+</div></body></html></body>
+</html>

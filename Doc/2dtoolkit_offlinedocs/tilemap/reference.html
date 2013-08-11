@@ -1,0 +1,147 @@
+<html>
+<head><title>Tile Map Reference</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Tile Map Reference</h1>
+
+<h2>Paint</h2>
+
+<p><img src="img/tmr_paint.png" alt="tmr_paint"></p>
+
+<p><strong>Palette</strong> - The tile palette. Use this to create a brush by selecting one or more tiles.</p>
+
+<p><strong>Brush</strong> - A preview of the brush that will be used to draw tiles into the tilemap.</p>
+
+<p><strong>Cursor Tile Opacity</strong> - Opacity of the brush preview at the location tiles will be drawn. Adjusting this can help with visualizing tile placement.</p>
+
+<p><img src="img/tmr_paint_sceneview.png" alt="tmr<em>paint</em>sceneview"></p>
+
+<p>Icons from left to right:<br>
+<strong>Draw</strong> - Draw tile brush onto the tilemap. Single-click to splat the brush, dragging a rectangle will repeat the brush.</p>
+
+<p><strong>Draw Random</strong> - Draws using random tiles from the brush. You can also drag a rectangle to splat brush tiles randomly.</p>
+
+<p><strong>Erase</strong> - Click or drag to erase tiles.</p>
+
+<p><strong>Eyedropper</strong> - Select a region from the tilemap to use as the current brush.</p>
+
+<p><strong>Cut</strong> - Same as eyedropper, but also erases the region.</p>
+
+<p><strong>Flip Horizontal</strong> - The tile brush used to paint is flipped horizontally.</p>
+
+<p><strong>Flip Vertical</strong> - Flip tile brush vertically.</p>
+
+<p><strong>Scratchpad</strong> - Open / Close Scratchpad.</p>
+
+<p><img src="img/tmr_scratchpad.png" alt="tmr_scratchpad"></p>
+
+<p>A scratchpad is used like a mini tilemap where you can store different pre-built tile configurations, then pick them up later on to use on your scene.</p>
+
+<p>You can have as many scratchpads as you like. It's a good idea to give them names so you can quickly navigate to the one you want using the filtered search.</p>
+
+<h2>Color</h2>
+
+<p><img src="img/tmr_color.png" alt="tmr_color"></p>
+
+<p><strong>Channel Mask</strong> - Affect all or only one color channel while painting color.</p>
+
+<p><strong>Color</strong> - Set color to paint with.</p>
+
+<p><strong>Mode</strong> - Normal color paint, Add color value, Subtract color value, Pick color.</p>
+
+<p><strong>Radius</strong> - Color brush radius. Can also be changed using '[' and ']' when painting.</p>
+
+<p><strong>Intensity</strong> - Intensity (opacity) of brush.</p>
+
+<p><strong>Brush shape</strong> - A customizable curve for the falloff (how the brush fades out away from center).</p>
+
+<p><strong>Clear to Color</strong> - Sets the entire color channel to the selected color.</p>
+
+<h2>Data</h2>
+
+<p><img src="img/tmr_data.png" alt="tmr_data"></p>
+
+<p>Each type of tile can have data associated with it.</p>
+
+<p><strong>Prefab</strong> - The prefab will be spawned for each of these tiles in the tilemap.</p>
+
+<p><strong>String Int Float</strong> - Data associated with this type, that can be read from the tilemap.</p>
+
+<p><strong>Enable Prefab Offset</strong> - Enable this to keep the prefab position as a local offset from the tile.</p>
+
+<h2>Settings</h2>
+
+<p><img src="img/tmr_settings.png" alt="tmr_settings"></p>
+
+<p><strong>Sprite Collection</strong> - The sprite collection the tilemap uses</p>
+
+<p><strong>Tile Map Data</strong> - tk2dTileMapData object for the tilemap</p>
+
+<p><strong>Editor Data</strong> - tk2dTileMapEditorData object for the tilemap</p>
+
+<p><strong>Render Data</strong> - GameObject with the actual render data</p>
+
+<p><strong>Unlink</strong> - Unlink the render objects from the tilemap. New ones will be created upon Commit.</p>
+
+<p><img src="img/tmr_settings_dims.png" alt="tmr<em>settings</em>dims"></p>
+
+<p><strong>Width</strong> - Number of tiles horizontally</p>
+
+<p><strong>Height</strong> - Number of tiles vertically</p>
+
+<p><strong>PartitionSizeX</strong> - Number of tiles horizontally in a Chunk</p>
+
+<p><strong>PartitionSizeY</strong> - Number of tiles vertically in a Chunk</p>
+
+<p><img src="img/tmr_settings_layers.png" alt="tmr<em>settings</em>layers"></p>
+
+<p><strong>Fixed Z</strong> - If enabled, Z position of layers is set to 'Z Value'. Otherwise layer Z positions are specified as an offset from the previous layer.</p>
+
+<p><strong>Render Mesh</strong> - Enabled if the layer should have render data when tilemap is Committed. (e.g. disable if the layer should only be used as collider)</p>
+
+<p><strong>Color</strong> - Layer uses color channel</p>
+
+<p><strong>Collider</strong> - Enabled if the layer should have a collider mesh when tilemap is Committed.</p>
+
+<p><strong>Z Offset / Z Value</strong> - Z position, or offset from previous layer.</p>
+
+<p><strong>Layer</strong> - Unity Layer of the tilemap layer.</p>
+
+<p><strong>Physic Material</strong> - Unity PhysicMaterial of the tilemap layer.</p>
+
+<p><img src="img/tmr_settings_info.png" alt="tmr<em>settings</em>info"></p>
+
+<p><strong>Active chunks, Memory</strong> - Number of non-empty chunks. Internal tile data memory usage.</p>
+
+<p><strong>Active color chunks, Memory</strong> - Number of chunks with color data. Internal color data memory usage.</p>
+
+<p><img src="img/tmr_settings_tile_props.png" alt="tmr<em>settings</em>tile_props"></p>
+
+<p><strong>Tile Type</strong> - Rectangular or Isometric tiles. (Isometric mode is still in beta)</p>
+
+<p><strong>Sort Method</strong> - Set the order in which tiles are drawn. Useful when tiles have overlapping regions.</p>
+
+<p><strong>Reset sizes</strong> - Guesses the Origin and Size using information from the sprite collection.</p>
+
+<p><strong>Origin and Size</strong> - Set the tile offset and area in relation to a sprite. Use the preview in the area below to align the tile shape with an image from the sprite collection.</p>
+
+<p><img src="img/tmr_settings_palette_props.png" alt="tmr<em>settings</em>palette_props"></p>
+
+<p><strong>Tiles Per Row / Display Scale</strong> - Adjust how the grid of tiles is shown in the palette.</p>
+
+<p><img src="img/tmr_settings_import.png" alt="tmr<em>settings</em>import"></p>
+
+<p><strong>Import TMX</strong> - Import "Tiled TMX"</p>
+</div></body></html></body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head><title>Sprite</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Sprite</h1>
+
+<p><img src="img/sprite.png" alt="Sprite"></p>
+
+<p><strong>Collection &amp; Sprite</strong> - Select a sprite collection, and a sprite from within it.</p>
+
+<p><strong>Color</strong> - This color is applied to the vertex colors, so you can use this in your custom shaders to do various things. The provided shaders will tint the texture by the vertex colors.</p>
+
+<p><strong>Scale</strong> - Change the scale on the sprite. This is the preferred way to change scale on your sprite, as opposed to changing the local scale on the transform. Changing scale here will not break dynamic batching.</p>
+
+<p><strong>HFlip</strong> - Flip sprite horizontally</p>
+
+<p><strong>VFlip</strong> - Flip sprite vertically</p>
+
+<p><strong>Reset scale</strong> - Resets the sprite scale to 1, 1, 1</p>
+
+<p><strong>Bake Scale</strong> - Transfers transform.localScale to sprite.scale and resets transform.localScale to 1, 1, 1. This lets you use the built in unity scale widgets, and clicking on Bake Scale will recursively transfer all localScale values, so dynamic batching will work once more.</p>
+
+<p><strong>1:1</strong> - Use this when your camera size doesn't match the sprite collection size. For example, if your sprite collection ortho size is 1.0 and your camera is a perspective camera (for parallax), simply click Make Pixel Perfect and the sprite will be rescaled to match the texture size in the viewport.</p>
+
+<ul>
+<li>Always - Always keeps this sprite pixel perfect. This is deprecated - the recommended way to get always pixel perfect sprites is to use tk2dCamera.</li>
+</ul>
+</div></body></html></body>
+</html>

@@ -1,0 +1,126 @@
+<html>
+<head><title>Migration Guide</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="dot.png">
+<a href="index.html">Documentation</a>
+<img src="dot.png">
+<a href="html/annotated.html">Script Reference</a>
+<img src="dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><div class="toc">
+    <b>Table of Contents</b>
+    <ul>
+        <li><a href="#beforeupgrading">Before upgrading or migrating</a></li>
+        <li><a href="#data">Data incompatibilities</a></li>
+        <ul>
+            <li><a href="#databatcher">Static Sprite Batcher</a></li>
+            <li><a href="#datasliced">Sliced Sprite</a></li>
+        </ul>
+        <li><a href="#api">API changes</a></li>     
+        <li><a href="#migrating">Migrating from 2D Toolkit 1.x to 2.0</a></li>      
+    </ul>
+</div>
+
+<h1>Migration Guide</h1>
+
+<p><a id="beforeupgrading"></a></p>
+
+<h2>Before upgrading or migrating.</h2>
+
+<p>2D Toolkit 2.0 is data-compatible with 2D Toolkit 1.x, but not entirely API compatible. We found this the right time to update some of the APIs. You will be able to use most if not all of your assets and scenes without any modifications. You will, however, be required to update your scripts appropriately to work with the new API.</p>
+
+<p>Before upgrading, please ensure that your project runtime isn't corrupt. You can verify this by running the <a href="http://unikronsoftware.com/2dtoolkit/forum/index.php/topic,1685.0.html">2D Toolkit Integrity Checker</a>.</p>
+
+<p>If you use PlayMaker or other Unity middleware that depends on 2D Toolkit, ensure that these have been updated to work with 2D Toolkit 2.0 before you migrate to this version.</p>
+
+<p>If you have moved the source files from the default installation directories, it is highly recommended to move them back to the default installation directory.</p>
+
+<blockquote>
+  <p>IMPORTANT: Make a backup of your project before updating.</p>
+</blockquote>
+
+<p><a id="data"></a></p>
+
+<h2>Data incompatibilities.</h2>
+
+<p>While we have taken a lot of care in making 2D Toolkit data compatible, there are certain smaller less-used features which may be incompatible depending on how you have used it in your project. These features are listed here - please keep an eye out for irregularities with these, and fix them appropriately.</p>
+
+<p><a id="databatcher"></a></p>
+
+<h3>Static Sprite Batcher.</h3>
+
+<p>The static sprite batcher had numerous small bugs to do with hierarchy reconstruction which has been corrected in 2D Toolkit 2.0. This may cause different behaviours when your static sprite batcher is rebuilt, either due to a manual rebuild or an automatic build at scene load.</p>
+
+<blockquote>
+  <p>The potential incompatibility may only occur when you set up a hierarchy in the static sprite batcher, and the batcher itself AND other objects within it are scaled.</p>
+</blockquote>
+
+<p><a id="datasliced"></a></p>
+
+<h3>Sliced Sprite.</h3>
+
+<p>The sliced sprite used to have a "legacy mode" for backwards compatibility with 2D Toolkit 1.70 and earlier. There is an automatic upgrade process that is executed when a legacy sliced sprite is loaded for the first time, but there are certain cases where this may fail.</p>
+
+<blockquote>
+  <p>When operating in "legacy mode" the sliced sprite used the anchor set up in the sprite collection as the anchor for the sprite. The automatic migration is capable of upgrading all the preset anchor positions, but will fail when using a custom anchor in the sprite collection settings.</p>
+</blockquote>
+
+<p><a id="api"></a></p>
+
+<h2>API changes.</h2>
+
+<ul>
+<li><p>tk2dButton is now deprecated, but is still there in the distribution. Use tk2dUI instead, its much more powerful and flexible.</p></li>
+<li><p>tk2dBaseSprite.SwitchCollectionAndSprite is now removed. You can use tk2dBaseSprite.SetSprite to achieve the same thing. You can safely find and replace all occurances of SwitchCollectionAndSprite to SetSprite.</p></li>
+<li><p>tk2dBaseSprite.FlipX() and FlipY() are removed, and replaced with properties. You can now do things like sprite.FlipX = true; You should change all occurances of FlipX() to sprite.FlipX = !sprite.FlipX; to get the old "toggle" behaviour back.</p></li>
+<li><p>Removed "Always pixel perfect" from sprites &amp; textMeshes. This isn't necessary for operation, and can be called manually if still required.</p></li>
+<li><p>tk2dAnimatedSprite is now deprecated, and replaced with tk2dSpriteAnimator. tk2dSpriteAnimator now attaches to a sprite type, and can animate all sprite types - including sliced sprites, tiled sprites, etc. All currently existing tk2dAnimatedSprites simply work - it now acts as a wrapper to tk2dSpriteAnimator, but some functions have been removed.</p>
+
+<ul>
+<li><p>tk2dAnimatedSprite.anim is now private. Replace with tk2dAnimatedSprite.Library.</p></li>
+<li><p>tk2dAnimatedSprite.clipId is now DefaultClipId.</p></li>
+<li><p>tk2dAnimatedSprite.Play( int clipId ) variants are now removed - there was an explosion of function types, and was getting unmanageable. Replace with animatedSprite.Play( animatedSprite.Libary.GetClipById(id) ).</p></li>
+<li><p>tk2dAnimatedSprite.GetClipIdByName removed - prefer tk2dAnimatedSprite.GetClipByName instead.</p></li>
+<li><p>tk2dAnimatedSprite.Play will <strong>NO LONGER</strong> restart a clip that is already playing. If you want to restart a clip, either Stop and Play again or Play(clip, 0, DefaultFps). This brings the behaviour in line with the Unity animation.Play function.</p></li>
+</ul></li>
+<li><p>Migrating from tk2dAnimatedSprite to tk2dSpriteAnimator on a sprite.</p>
+
+<ul>
+<li><p>Clicking "Convert to Sprite Animator" in the inspector will convert the selected tk2dAnimatedSprite to a tk2dSpriteAnimator. This will break all references to this object, so it is probably not a good idea to do this on a working project. You can create new sprites as tk2dSpriteAnimators, though, safely mix and match.</p></li>
+<li><p>tk2dSpriteAnimator is no longer a sprite. If you need to change sprite properties, eg. scale, spriteId or color - use tk2dSpriteAnimator.Sprite to get a reference to it. So - instead of animSprite.color = Color.red, do spriteAnimator.Sprite.color = Color.red; You do not need to cache the result of this property, as it is already cached in the sprite animator.</p></li>
+<li><p>tk2dSpriteAnimator callback signatures have been changed, and are now called AnimationCompleted and AnimationEventTriggered.</p></li>
+<li><p>Since the tk2dSpriteAnimator is a separate behaviour to the sprite itself, the behaviour can be disabled and time stepped manually, eg. when you need an animation to run while the game is paused.</p></li>
+<li><p>tk2dSpriteAnimator.PlayFrom replaces the the Play overloads that start from a particular time offset. This makes it in line with the PlayFromFrame functions.</p></li>
+</ul></li>
+<li><p>tk2dRuntime.SpriteCollectionSize now replaced with tk2dSpriteCollectionSize. Other systems (sprite collection, font) will be migrated over to this new system in the future, but the changes will be versioned.</p></li>
+<li><p>tk2dUIManager.OnMouseWheelChange has been changed to tk2dUIManager.OnScrollWheelChange. Unity was complaining about the OnMouse... function name when built to iOS.</p></li>
+<li><p>Building a static sprite batcher in code - use batchedSprites.relativeMatrix.SetTRS( position, rotation, scale ); instead of batchedSprites.position.</p></li>
+</ul>
+
+<p><a id="migrating"></a></p>
+
+<h2>Migrating from 2D Toolkit 1.x to 2.0</h2>
+
+<ol>
+<li><p>Back-up your project. </p>
+
+<ul>
+<li>Ideally, have meta files turned on. Read more about meta files <a href="http://docs.unity3d.com/Documentation/Manual/ExternalVersionControlSystemSupport.html">here</a>. This is not essential.</li>
+</ul></li>
+<li><p>Run the <a href="http://unikronsoftware.com/2dtoolkit/forum/index.php/topic,1685.0.html">2D Toolkit Integrity Checker</a> to ensure the runtime scripts are not corrupt. If it is corrupt, do not proceed. Contact support for more information on how to update.</p></li>
+<li><p>Create a new scene in Unity.</p></li>
+<li><p>Import the 2D Toolkit 2.0 unitypackage.</p></li>
+<li><p><strong>IMPORTANT</strong> Restart Unity.</p></li>
+<li><p>If you have previously used the "Setup for JS" command, run it again now. Files will be moved to appropriate locations.</p></li>
+<li><p>Fix up all code incompatibilites as outlined above.</p></li>
+<li><p>Check that you are not affected by the data incompatibility.</p></li>
+<li><p>With a bit of luck, your project should now be running on 2D Toolkit 2.0.</p></li>
+</ol>
+</div></body></html></body>
+</html>

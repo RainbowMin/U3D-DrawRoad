@@ -1,0 +1,39 @@
+<html>
+<head><title>Creating A Sprite In The Editor</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Creating A Sprite In The Editor</h1>
+
+<p>In the previous section we looked at creating a sprite collection, but that doesn't actually put any sprites into our game world.  We will now look at how to add a sprite to the game.</p>
+
+<ol>
+<li><p>Create a sprite by clicking on "Create > tk2d > Sprite" in the Hierarchy Window.<br>
+<img src="img/CreateSprite.png" alt="img/CreateSprite.png"></p></li>
+<li><p>Your sprite now appears in the Hierarchy Window and in the viewport.</p></li>
+<li><p>Click on the sprite object in the Scene Tab or in the Hierarchy Window, and the Sprite editor inspector appears. 
+<img src="img/SpriteInspector.png" alt="img/SpriteInspector.png"></p></li>
+<li><p>If 2D Toolkit hasn't automatically picked the correct Sprite Collection for you, you can click on the Collection drop-down box and select a different one. The sprite within your scene should update instantly to reflect the changes. If your Sprite Collection has a collider set up, an appropriate collider will automatically be built in the scene too.<br>
+<img src="img/CreatedSprite.png" alt="img/CreatedSprite.png"></p></li>
+<li><p>Congratulations! You should now have a sprite in the scene.</p></li>
+</ol>
+
+<h2>Help! I can't see the sprite in game view.</h2>
+
+<ol>
+<li><p>Make sure the sprite is the correct size. If you've followed the instructions so far, your sprite should be the correct size. Select the sprite and click "1:1" to see if it becomes visible. If it does, it means that the sprite wasn't created at the correct size - either correct the camera, or the settings in the sprite collection editor to fix this.</p></li>
+<li><p>Make sure the sprite is INSIDE the view frustum. You can make sure it is by selecting the camera, and rotating the camera in scene view so that you can see the sprite relative to the 3D box outlined by the tk2damera. If it is outside this box, move it into the box.
+<img src="img/sprite_camera_frustum.png" alt="img/sprite<em>camera</em>frustum"></p></li>
+</ol>
+</div></body></html></body>
+</html>

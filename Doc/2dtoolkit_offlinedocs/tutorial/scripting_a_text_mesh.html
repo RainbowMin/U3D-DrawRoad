@@ -1,0 +1,103 @@
+<html>
+<head><title>Scripting a Text Mesh</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Scripting a Text Mesh</h1>
+
+<p>You can easily access the tk2dTextMesh behaviour from code to control various parameters. In this example, we will be adding a score counter which increases when the Q key is held down. Create a C# script called TextMeshExample, and paste the following code block into it.</p>
+
+<div class="codefile"><a href="code/TextMeshExample.cs">code/TextMeshExample.cs</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> UnityEngine;
+<span style="color:Blue;">using</span> System.Collections;
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">class</span> TextMeshExample : MonoBehaviour {
+
+    tk2dTextMesh textMesh;
+    <span style="color:Blue;">int</span> score = 0;
+
+    <span style="color:Green;">// Use this for initialization</span>
+    <span style="color:Blue;">void</span> Start () {
+        textMesh = GetComponent&lt;tk2dTextMesh&gt;();
+    }
+
+    <span style="color:Green;">// Update is called once per frame</span>
+    <span style="color:Blue;">void</span> Update () {
+        <span style="color:Blue;">if</span> (Input.GetKey(KeyCode.Q))
+        {
+            score++;
+
+            textMesh.text = <span style="color:#A31515;">&quot;SCORE: &quot;</span> + score.ToString();
+
+            <span style="color:Green;">// This is important, your changes will not be updated until you call Commit()</span>
+            <span style="color:Green;">// This is so you can change multiple parameters without reconstructing</span>
+            <span style="color:Green;">// the mesh repeatedly</span>
+            textMesh.Commit();
+        }
+    }
+}
+</pre></div>
+
+<div class="codefile"><a href="code/TextMeshExample.js">code/TextMeshExample.js</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">#pragma</span> strict
+
+<span style="color:Blue;">private</span> <span style="color:Blue;">var</span> textMesh : tk2dTextMesh;
+textMesh = GetComponent(tk2dTextMesh);
+
+<span style="color:Blue;">private</span> <span style="color:Blue;">var</span> score = 0;
+
+<span style="color:Green;">// Update is called once per frame</span>
+function Update() {
+    <span style="color:Blue;">if</span> (Input.GetKey(KeyCode.Q))
+    {
+        score++;
+
+        textMesh.text = <span style="color:#A31515;">&quot;SCORE: &quot;</span> + score.ToString();
+
+        <span style="color:Green;">// This is important, your changes will not be updated until you call Commit()</span>
+        <span style="color:Green;">// This is so you can change multiple parameters without reconstructing</span>
+        <span style="color:Green;">// the mesh repeatedly</span>
+        textMesh.Commit();
+    }
+}
+</pre></div>
+
+<p>Attach this script to the text mesh in the scene, and press play to start the game. Observe that the score text increases when the Q key is held down.</p>
+
+<p>You can change the scale of the text mesh without breaking dynamic batching by:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+textMesh.scale = Vector3(xScale, yScale, zScale);
+</pre></div>
+
+<p>You can also change the text color by:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+textMesh.color = Color.red;
+</pre></div>
+
+<p>If you have <strong>Use Gradient</strong> enabled, you can change the second gradient color by:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+textMesh.color2 = Color.green;
+</pre></div>
+
+<blockquote>
+  <p>NOTE: While you can change the maxChars field in code, you should avoid that during runtime as it will reallocate memory.</p>
+</blockquote>
+</div></body></html></body>
+</html>

@@ -1,0 +1,82 @@
+<html>
+<head><title>Platform Specific Sprite Collections</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Platform Specific Sprite Collections</h1>
+
+<p>When building mobile projects, it is common to have 1x (SD) &amp; 2x (HD) and sometimes even 4x assets. The platform specific sprite collections feature makes it really easy to support and manage these assets. The way the system works, you can work at one native platform and very quickly set up the additional data at a later point in time.</p>
+
+<p>The system only handles sprite collections - it is possible to use platform specific fonts too, but they will need to be added to a sprite collection.</p>
+
+<h2>Ideal workflow</h2>
+
+<ol>
+<li><p>Set up your sprite collections with the lowest quality assets (1x) and use these sprite collections to set up the scene.</p></li>
+<li><p>If you haven't done this before, you will need to add platform support. In the settings inspector of the sprite collection editor, click on "Add Platform Support". If this has already been set up on any sprite collection, this button will not be present.</p>
+
+<p><img src="img/spritecoll_addplatformsupport.png" alt="img/spritecoll_addplatformsupport.png"></p></li>
+<li><p>Select the platform of the currently selected sprite collection. For example, if the current sprite collection has 1x assets, select 1x.</p>
+
+<p><img src="img/spritecoll_selectplatform.png" alt="img/spritecoll_selectplatform.png"></p></li>
+<li><p>Click on <strong>"Add new platform"</strong>, and select the platform you'd like to add. Make sure the textures / other platform specific files exists for this platform. Refer to <a href="#assetpaths">Asset Paths</a> for more information on how 2D Toolkit will look for platform specific assets.</p></li>
+<li><p>Commit.</p></li>
+<li><p>At game startup, before loading anything call <code>tk2dSystem.CurrentPlatform = "2x";</code> or your platform of choice based on your game specific logic.</p></li>
+</ol>
+
+<blockquote>
+  <p>You can switch the currently active sprite collection in "2D Toolkit > Preferences". All platform specific sprite collections will switch in project &amp; game view.</p>
+</blockquote>
+
+<p><a id="assetpaths"></a></p>
+
+<h2>Asset Paths</h2>
+
+<p>When looking for platform specific sprites and fonts, 2D Toolkit will attempt to search for each file as shown in the following examples:</p>
+
+<p>Example 1 - when looking for a 2x texture.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    Source: Assets/SpriteCollection/Textures/test.png
+    1: Assets/SpriteCollection/Textures/test@2x.png
+    2: Assets/SpriteCollection/Textures/2x/test.png
+    3: Assets/SpriteCollection/Textures/2x/test@2x.png
+</pre></div>
+
+<p>Example 2 - 2D Toolkit ignores @XXX on the source texture. This has the same search order as above.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    Source: Assets/SpriteCollection/Textures/test@1x.png
+    1: Assets/SpriteCollection/Textures/test@2x.png
+    2: Assets/SpriteCollection/Textures/2x/test.png
+    3: Assets/SpriteCollection/Textures/2x/test@2x.png
+</pre></div>
+
+<p>The same rules apply to fonts. 2D Toolkit will now parse your bmfont to find the appropriate texture, so you won't need to rename the texture. If in doubt, export from your font package using the full @platform filename instead of renaming it once it has been exported.</p>
+
+<p>There isn't a dedicated sprite collection directory, so keep each platform specific texture relative to the original one following the rules above. This can be anywhere in your project folder.</p>
+
+<p>If you'd like to customize the rules further - the code that handles all of this is in tk2dSpriteCollectionPlatformBuilder.cs.</p>
+
+<h2>Things to consider and some detail</h2>
+
+<ul>
+<li><p>If you start with high resolution assets, and add a low quality override - be careful about center / middle sprite alignment. 2D Toolkit will automatically align the center of a sprite to a pixel boundary to avoid quality loss / missing rows of pixels. Make sure your high resolution textures are always multiple of the unit.</p></li>
+<li><p>Always run "2D Toolkit > Rebuild Index" after merging any changes from source control which could have changed any platform data. This will ensure your runtime will have the required assets.</p></li>
+<li><p>2D Toolkit will automatically rescale your sprites so they remain the same size in screen space. This means no additional changes will be required in the scene.</p></li>
+<li><p>Platform specific sprite collections do not have any references to materials or textures or any other platform specific data. If you started off with a sprite collection which didn't have platform data, you should resave all your scenes to ensure that no surplus material/texture data is left over bloating runtime memory.</p></li>
+<li><p>If the requested platform doesn't exist on a sprite collection, the system will default to the first available one.</p></li>
+<li><p>Avoid platform specific atlases on spanned sprite collections at all costs. Its much cheaper and more reliable to do it yourself.</p></li>
+</ul>
+</div></body></html></body>
+</html>

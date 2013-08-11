@@ -1,0 +1,45 @@
+<html>
+<head><title>Using the Static Sprite Batcher</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Using the Static Sprite Batcher</h1>
+
+<p>Before we proceed to use the static sprite batcher, we will first create some more sprites in the scene. Proceed to create a few more sprites in the scene so it looks like this:</p>
+
+<p><img src="img/SpriteBatcherScene.png" alt="SpriteBatcherScene"></p>
+
+<p>As you can imagine, the Hierarchy window is going to get more and more complex the more sprites we add, and performance is going to slowly degrade as there will be a large number of GameObjects with static sprites which aren't doing anything.</p>
+
+<p>In order to get around this, we can use the Static Sprite Batcher. This will let you batch a large number of sprites, which are currently limited to one Sprite Collection, into one large mesh. Physics colliders will automatically be baked down as well.</p>
+
+<ol>
+<li><p>Create a Static Sprite Batcher by clicking "Create > tk2d >Static Sprite Batcher" in the Hierarchy Window.</p>
+
+<p><img src="img/CreateStaticSpriteBatcher.png" alt="CreateStaticSpriteBatcher"></p></li>
+<li><p>Drag the background sprites into the Static Sprite Batcher</p>
+
+<p><img src="img/PopulatedStaticSpriteBatcher.png" alt="PopulatedStaticSpriteBatcher"></p></li>
+<li><p>Click commit on the Static Sprite Batcher. Observe that all the sprites you created have been removed from the hierarchy, and only the StaticSpriteBatcher object remains.</p>
+
+<p><img src="img/CommitStaticSpriteBatcher.png" alt="CommitStaticSpriteBatcher"></p></li>
+<li><p>Whenever you need to edit the background sprites, simply click on Edit in the StaticSpriteBatcher and your original sprites will reappear. Don't forget to commit your changes after editing them.</p>
+
+<p><img src="img/EditStaticSpriteBatcher.png" alt="EditStaticSpriteBatcher"></p></li>
+</ol>
+
+<blockquote>
+  <p>As of 2D Toolkit 2.0, you can now add all sprite types, and text meshes into a static sprite batcher. You are also no longer limited to sprites being from one collection. However, keep in mind that adding sprites from different collections, atlases or materials will increase the number of draw calls.</p>
+</blockquote>
+</div></body></html></body>
+</html>

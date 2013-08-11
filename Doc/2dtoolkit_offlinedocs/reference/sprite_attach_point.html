@@ -1,0 +1,42 @@
+<html>
+<head><title>Sprite Attach Point</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Sprite Attach Point</h1>
+
+<h2>Editor</h2>
+
+<p>Sprite attach points are set up in the "AttachPoint" tab of the sprite collection editor (1).</p>
+
+<p><img src="img/sprite_attach_point_editor.png" alt="sprite<em>attach</em>point_editor"></p>
+
+<p>You can add new attach points by clicking on "Add AttachPoint" and you can move and rotate them in relative to the sprite by dragging the handle (2).</p>
+
+<p>Attach points are useful for attaching various things to your sprites. They are attached per sprite, and can be animated. You can preview attached sprites in the ditor by clicking "Preview" and then assigning sprites to each of the attach points.</p>
+
+<p><img src="img/sprite_attach_point_editor_preview.png" alt="sprite<em>attach</em>point<em>editor</em>preview"></p>
+
+<h2>Game</h2>
+
+<p>Attach the tk2dSpriteAttachPoint behaviour to a sprite to start spawning attach points. You normally shouldn't need to change any properties on the behvaiour.</p>
+
+<p><img src="img/attachpoint_hierarchy.png" alt="attachpoint_hierarchy"></p>
+
+<p><strong>Deactivate Unused Attach Points</strong> - The normal behaviour is to ignore missing attach point game objects. Ticking this box will make the behaviour disable missing attach points. This is useful when you need to hide an attach point for a few frames before reactivating it.</p>
+
+<p>The behaviour will automatically create any attach points associated with the sprite as game objects and animate them. You can attach sprites to these attach points as shown in the hierarchy window below.</p>
+
+<p><img src="img/attachpoint_game.png" alt="attachpoint_game"></p>
+</div></body></html></body>
+</html>

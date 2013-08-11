@@ -1,0 +1,29 @@
+<html>
+<head><title>Level Creation Tips</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Level Creation Tips</h1>
+
+<ul>
+<li><p>Do not use just one static sprite batcher for your entire level if the level spans multiple screens of content. Unity will draw the entire static sprite batcher, regardless if only 1% of it is visible. Split them up into logical sections - rooms, pages, etc. Keep an eye on the Stats view in Unity to make sure you aren't drawing a lot more than you expect.</p></li>
+<li><p>Use the collider set-up to mask impassable ground and platforms. Here is the previous scene with colliders set-up as an example.</p></li>
+</ul>
+
+<p><img src="img/staticspritebatchercollider.png" alt="staticspritebatchercollider"></p>
+
+<ul>
+<li>Don't forget to commit your changes!</li>
+</ul>
+</div></body></html></body>
+</html>

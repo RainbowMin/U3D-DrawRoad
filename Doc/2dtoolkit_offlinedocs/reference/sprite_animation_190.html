@@ -1,0 +1,158 @@
+<html>
+<head><title>Sprite Animations</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><div class="toc">
+    <b>Table of Contents</b>
+    <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#preview">Preview</a></li>     
+        <li>Inspectors</li>
+        <ul>
+            <li><a href="#clipinspector">Clip Inspector</a></li>        
+            <li><a href="#frameinspector">Frame Insepctor</a></li>      
+            <li><a href="#triggerinspector">Trigger Inspector</a></li>      
+        </ul>
+        <li><a href="#animop">Animation editor operators</a></li>       
+    </ul>
+</div>
+
+<h1>Sprite Animations</h1>
+
+<p>All editing of a sprite animation collection is carried out in the Sprite Animation editor. This page will go through the different operations you can perform in this editor.</p>
+
+<p>As with the sprite collection editor, all editing operations are performed on a local copy of the data, and are only saved when the changes are Committed.</p>
+
+<p><a id="intro"></a></p>
+
+<h2>Introduction</h2>
+
+<p><img src="img/spriteanimation190.png" alt="Sprite Animation"></p>
+
+<p><strong>Create</strong> - Brings up a pop up menu to create new clips and create a copy of existing clips.</p>
+
+<p><strong>Clip list</strong> - Displays a list of the clips in the current collection. You can click to select clips, or if you prefer, you can use the up and down arrow keys.</p>
+
+<p><strong>Commit</strong> - Commits changes to the sprite animation collection and saves changes.</p>
+
+<p><strong>Revert</strong> - Reverts to the state of at last Commit.</p>
+
+<p><strong>Play</strong> - Plays the current clip and displays a preview in the preview area.</p>
+
+<p><strong>Repeat</strong> - Useful for one shot (Once) clips - will play the clip once it has stopped playing. You can edit the clip whilst its playing.</p>
+
+<p>Selecting a clip will bring up the clip inspector for the selected clip. This lets you edit various clip properties. </p>
+
+<p>If you have a frame or trigger selected, the relevant inspector is displayed as well.</p>
+
+<pre><code>Keyboard shortcuts.
+Enter - Play.
+Up, Down arow - Select previous/next clip in list.
+F - focus display in the preview window.
+</code></pre>
+
+<p><a id="timeline"></a></p>
+
+<h2>Timeline</h2>
+
+<p>The timeline displays the current frames in the clip.</p>
+
+<p>You can click to select a frame, drag the frame to reposition it in the clip. You can also resize the current frame by clicking and dragging on the right end of the clip.</p>
+
+<p>You can zoom in and out in the timeline to display less or more information by scrolling while holding down the control or option (on Mac).</p>
+
+<p>Click on the + button at the end of your clip to insert a new frame. This creates a copy of the last frame in your clip. You are free to change the sprite and/or any other properties.</p>
+
+<p>You can also move triggers by clicking and dragging them. You can insert new frames by double clicking in the trigger section.</p>
+
+<pre><code>Keyboard navigation.
+Left, Right arrow or , and . - Select the previous and next frames in the clip respectively. You can hold down the key to scrub frames.
+Home, End - Select the first and last frame in the clip respectively.
+Escape - Deselect the currently selected frame.
+Delete - Deletes the currently selected trigger / frame.
+</code></pre>
+
+<p><a id="preview"></a></p>
+
+<h2>Preview</h2>
+
+<p>You can pan in the preview window by clicking and dragging. You can also zoom in/out by using the mousewheel.</p>
+
+<p><a id="clipinspector"></a></p>
+
+<h2>Clip inspector</h2>
+
+<p><strong>Name</strong> - clip name. The clip name should be unique, and you will be prompted when you commit if you have any duplicat names.</p>
+
+<p><strong>Frames</strong> - read only field displaying the number of frames in the current clip.</p>
+
+<p><strong>Frame rate</strong> - The default frame rate for this clip. This can be overriden when playing the clip. Changing the frame rate will affect clip time.</p>
+
+<p><strong>Clip time</strong> - The total clip time in seconds. Changing this will change the frame rate.</p>
+
+<p><strong>Wrap Mode</strong> - Options are:
+* Loop - The animation is looped indefinitely.
+* LoopSection - A part of the animation is played once and a second section is looped indefinitely.
+* Once - The animation plays once and then stops on the last frame.
+* PingPong - The animation sequence is played forward, then in reverse. The last frames are only played once. Eg. 0 - 1 - 2 - 3 - 2 - 1 - …
+* Random Frame - One random frame is picked, and the animation stops after selecting it. This behaves like Single, but picks one random frame out of a selection.
+* Random Loop - Picks a random frame, and loops from that start point. This is useful if you have multiple bird animations, for instance, and you wish to have them play out of sync.
+* Single - Simply switches to this sprite. This is useful for continuity in your code, and also for placeholders before you have any animations set up.</p>
+
+<p><strong>Reverse</strong> - Reverses the frames in the current clip.</p>
+
+<p><strong>Trigger</strong> - Adds a trigger to the clip. The trigger is created at the first available frame currently without a trigger. You are free to move it once created, or if you prefer, you can double click in the trigger section to create a trigger at a particular frame.</p>
+
+<p><strong>Text</strong> - Lets you edit/type in sprite names for your clip. If you wish to have a sprite display for more than one frame, append a semicolon followed by the number of frames, eg. smoke5;10 will display sprite smoke5 for 10 frames. Clicking on process will process the text.</p>
+
+<p><a id="frameinspector"></a></p>
+
+<h2>Frame Inspector</h2>
+
+<p><strong>Collection, Sprite</strong> - Selects the sprite for this frame.</p>
+
+<p><strong>Frames</strong> - The number of frames this sprite is displayed for. Changing this will affect the time field.</p>
+
+<p><strong>Time</strong> - The number of seconds this sprite is displayed for. Changing this will affect the frames field.</p>
+
+<p><strong>Autofill</strong> - Looks at the selected frame, and looks for following sprite Ids. Eg. If your last frame is spritesheet/1, it will look for spritesheet/2, 3, 4 and so on until it can't find any more ids, or a frame with that id is found. 1..9 will look for sprite numbers ascending, and 9..1 will look for descending numbers from the currently selected frame.</p>
+
+<p><strong>Insert</strong> - Inserts a frame before or after the selected frame.</p>
+
+<p><strong>Delete</strong> - Deletes the current frame, all frames before or all frames after the currently selected frame.</p>
+
+<p><a id="triggerinspector"></a></p>
+
+<h2>Trigger Inspector</h2>
+
+<p><strong>Frame</strong> - The current frame the trigger is applied on.</p>
+
+<p><strong>Trigger info / float / int</strong> - Values used in the callback. You can enter any relevant data in these fields.</p>
+
+<p><a id="animop"></a></p>
+
+<h2>Animation Editor Operators</h2>
+
+<p>Animation editor operators is a powerful plugin system built into the animation editor. It can be used to extend the animation editor without having to change the source code to the editor - the only requirement is that your animation editor class inherits from the base operator class. A vast majority of the functionality in the editor is built as animation operators.</p>
+
+<p>In the clip inspector - Reverse, Trigger and Text.</p>
+
+<p>In the frame inspector - Autofill, Insert and Delete.</p>
+
+<p>In the create menu - Copy.</p>
+
+<p>Refer to <a href="../advanced/animation_editor_operators.html">Animation Editor Operators</a></p>
+</div></body></html></body>
+</html>

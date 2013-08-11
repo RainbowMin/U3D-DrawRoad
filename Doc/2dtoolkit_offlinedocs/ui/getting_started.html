@@ -1,0 +1,41 @@
+<html>
+<head><title>Getting Started with 2D Toolkit UI</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Getting Started with 2D Toolkit UI</h1>
+
+<p>This quick tutorial will go through a basic walkthrough of adding a button to your scene.</p>
+
+<ol>
+<li><p>Create a new scene.</p></li>
+<li><p>Click on Main Camera object in the Hierarchy Window, and the Camera editor inspector appears.</p></li>
+<li><p>In Main Camera Inspector set Projection = Orthographic and Size to 1.<br>
+<img src="img/camera_settings.png" alt="Camera Settings"></p>
+
+<blockquote>
+  <p>The UI prefabs are set up with an orthographic size of 1, but you are free to change them when you replace the graphics later.</p>
+</blockquote></li>
+<li><p>Create UIManager by clicking on "Create > tk2d > UI Manager" in the Hierarchy Window.<br>
+<img src="img/create_ui_manager.png" alt="Create UI Manager"></p></li>
+<li><p>Click on the UIManager object in the Hierarchy Window, and the UIManager editor inspector appears. Drag the camera used to show the UI in the scene into the 'UI Camera' field in the inspector.<br>
+<img src="img/attach_camera_to_manager.png" alt="Attach camera to manager"></p></li>
+<li><p>In Project View, navigate to <strong>TK2DROOT/tk2d<em>UI</em>Demo/ControlPrefabs</strong></p></li>
+<li><p>Drag the <strong>BasicButton</strong> prefab into the scene.<br>
+<img src="img/basic_button.png" alt="basic_button"></p></li>
+<li><p>Hit Play and you will be able to click this newly created button.<br>
+<img src="img/play_button.png" alt="play_button"></p></li>
+<li><p>Refer to <a href="system.html">Understanding the UI System and building your own components</a> for more information on events and how you can use them.</p></li>
+</ol>
+</div></body></html></body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head><title>Packed Fonts (Experimental)</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Packed Fonts (Experimental)</h1>
+
+<p>Packed fonts allow you to use the "Pack chars in multiple channels" feature in BMFont. When this is enabled, each channel of your texture (4 channels in a 32 bit image) stores an independent set of glyphs. This means that you can have 4x the number of glyphs in a single texture - a 2048x2048 texture can store the equivalent amount of data as a 4096x4096 texture.</p>
+
+<h2>Set-up</h2>
+
+<ol>
+<li><p>Export your font from BMFont, ensuring you have <strong>Bit Depth</strong> set to <strong>32</strong>, and <strong>Pack chars in multiple channels</strong> is ticked in "Export Options".</p></li>
+<li><p>Set-up this font as you would normally - you can't currently import the font into a sprite collection.</p></li>
+<li><p>Switch the shader on the material to tk2d/Goodies/PackedTextMesh.</p></li>
+<li><p>Use the font as you would normally, but keep in mind the limitations listed below.</p></li>
+</ol>
+
+<h2>Limitations</h2>
+
+<ul>
+<li>Packed fonts are currently not allowed in sprite collections.</li>
+<li>You can't change colors on packed fonts, but you can use the gradients feature to achieve similar results. Of course, you'll need a shader to enable this...</li>
+<li>Only supported with programmable shaders, and not in fixed function.</li>
+<li>The shader overhead is slightly higher than normal shaders.</li>
+</ul>
+</div></body></html></body>
+</html>

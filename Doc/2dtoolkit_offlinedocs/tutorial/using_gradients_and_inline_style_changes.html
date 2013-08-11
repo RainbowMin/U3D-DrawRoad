@@ -1,0 +1,50 @@
+<html>
+<head><title>Using Gradients and Inline Style Changes</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Using Gradients and Inline Style Changes</h1>
+
+<p>You can use the Gradients textures to create much higher quality gradients in 2D Toolkit. In addition to that, 2D Toolkit also supports inline style changes - changing gradient from within one textmesh.</p>
+
+<ol>
+<li><p>Add a gradient to the TutorialFont created <a href="preparing_a_font.html">here</a>.</p>
+
+<p><img src="img/AttachGradients.png" alt="AttachGradients.png"></p>
+
+<p>This is the gradient file used in this example.</p>
+
+<p><img src="img/TextGradient.png" alt="TextGradient.png"></p></li>
+<li><p>Set up the number of gradient tiles. In this example, our gradient image has 8 tiles.</p>
+
+<p><img src="img/GradientCount.png" alt="GradientCount.png"></p></li>
+<li><p>Click commit. Any TextMeshes using this font will now use gradients.</p>
+
+<p><img src="img/CommitGradients.png" alt="CommitGradients.png"></p></li>
+<li><p>Create a TextMesh in the scene and pick the TutorialFont. You will now be able to select gradients in addition to tinting the TextMesh using colors.</p>
+
+<p><img src="img/TextMeshGradientInspector.png" alt="TextMeshGradientInspector.png"></p></li>
+<li><p>Tick the <em>*Inline Styling *</em> tick-box in the TextMesh inspector. You can use inline style changes to pick from the first 10 gradients. For example, you can enter Hello, ^1World ^2!!! and this will style the string as shown below. </p>
+
+<blockquote>
+  <p>Note: The default style is the gradient which is selected in the interface.</p>
+</blockquote>
+
+<p><img src="img/TextMeshInlineStyling.png" alt="TextMeshInlineStyling.png"></p>
+
+<blockquote>
+  <p>You can do this from scripts too, making this very powerful indeed.</p>
+</blockquote></li>
+</ol>
+</div></body></html></body>
+</html>

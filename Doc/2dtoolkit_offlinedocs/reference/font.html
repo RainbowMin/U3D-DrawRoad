@@ -1,0 +1,45 @@
+<html>
+<head><title>Font</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Font</h1>
+
+<p><img src="img/font.png" alt="Font"></p>
+
+<p><strong>BMFont</strong> - Drop your BMFont here. The system supports both text and xml BMFonts.</p>
+
+<p><strong>Material</strong> - Default material used by this BMFont. From version 1.51 it is not necessary to create a material before creating a TextMesh.</p>
+
+<p><strong>Texture</strong> - Texture created by BMFont.</p>
+
+<p><strong>Gradient Texture</strong> - Optional texture for gradient fills. You can have more than one gradient per texture and select the gradient for TextMeshes without breaking dynamic batching.</p>
+
+<p><strong>Dupe Caps</strong> - Tick this when you only have caps or lower case characters exported in your BMFont. This is useful when you want to maximize texture space, and don't need lower case / upper case characters. In that case, typing either lower case or upper case characters will map to the available characters.</p>
+
+<p><strong>Flip Texture Y</strong> - Textures generated in Hiero need to be flipped.</p>
+
+<p><strong>Num Characters</strong> - Total number of characters to import. For example, if you do not need a full ASCII set, you can set it to 128.
+Target Height and Target Ortho Size - See Hints and Tips > Pixel Perfect Sprites and Fonts.</p>
+
+<p><strong>Gradient Count</strong> - The number of gradients laid out horizontally in your gradient texture. The texture is evenly split up into GradientCount tiles, and the tiles do not have to be square.</p>
+
+<p><strong>Manage Material</strong> - Automatically create and update materials when gradients are enabled and disabled. This should be left ticked unless you wish to modify shaders in the TextMesh. If you do not have this ticked and enable gradients, you will need to manually pick an appropriate shader.</p>
+
+<p><strong>Char Pad X</strong> - Increases spacing between characters. This may be negative to reduce the character spacing.</p>
+
+<p><strong>Use tk2d Camera</strong> - Tick this when this font is only going to be used with tk2dCameras. When ticked, textmeshes using this font will be created pixel perfect when a tk2dCamera is active.</p>
+
+<p><strong>Commit</strong> - Commits changes to this Font object.</p>
+</div></body></html></body>
+</html>

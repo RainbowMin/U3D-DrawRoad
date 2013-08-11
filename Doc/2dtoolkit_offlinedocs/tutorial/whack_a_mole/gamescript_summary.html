@@ -1,0 +1,258 @@
+<html>
+<head><title>MainGameScript</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../../dot.png">
+<a href="../../index.html">Documentation</a>
+<img src="../../dot.png">
+<a href="../../html/annotated.html">Script Reference</a>
+<img src="../../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>MainGameScript</h1>
+
+<p>Here, we're going to be looking a bit more in depth at what the GameScript does and how it works.</p>
+
+<p>The purpose of the game script is to control the game as a whole, which for this game involves triggering the moles and detecting when they have been 'whacked', amongst other things.</p>
+
+<p>You can see the complete version of the script <a href="code/MainGameScript.cs">here</a>, but for discussion purposes we will break it down into separate parts.</p>
+
+<h2>Overview</h2>
+
+<p>If you have previously looked at the <a href="code/MoleScript.cs">MoleScript code</a>, you will remember that most of the code had been written as Coroutines to manage the flow of the animation, and that we didn't use the Unity 'Update' function at all.  In MainGameScript, we are still going to use Coroutines, but in addition to that we will be using the more traditional 'Update' to give us the behaviour we want.  </p>
+
+<h2>Class Variables</h2>
+
+<h3>private List<molescript> moles</molescript></h3>
+
+<p>We need some way of holding our mole objects (or MoleScript objects to be exact).  We <em>could</em> use an array, but there aren't that many moles and using a list will make things slightly easier.</p>
+
+<h3>private bool gameEnd</h3>
+
+<p>A simple boolean value which tells us if the game has ended.</p>
+
+<h3>private int score</h3>
+
+<p>Holds the player's score.</p>
+
+<h3>private int timeLimitMS</h3>
+
+<p>The upper limit, in milliseconds, before we trigger another mole.</p>
+
+<h3>private int moleLimit</h3>
+
+<p>The maximum amount of moles that can be active at any one time.</p>
+
+<h3>public Camera gameCam</h3>
+
+<p>Holds the game camera.</p>
+
+<h3>public tk2dSpriteAnimator dustAnimator</h3>
+
+<p>This holds the 'BigDust' animated sprite object we created earlier in the game.</p>
+
+<h3>private static MainGameScript instance</h3>
+
+<p>Finally, we have a static variable of type MainGameScript.  If you aren't familiar with static variables it basically means that the variable will be created once and will remain for the duration of the program, and it belongs to the class rather than an instance of the class.  We can use the variable to treat the class as a 'singleton'; we will only ever want one instance of this class to exist at any time.</p>
+
+<p>We could make the MainGameScript instance variable public and allow other classes just to access it through 'MainGameScript.instance', but I like to keep variables private as much as possible.  So we make the variable private and create an 'Instance' attribute, that checks to see if 'instance' and write to the error log if it hasn't - this should never happen so we need to know about it if it does.  If the instance does exist however (which it should), then return it.</p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">public</span> <span style="color:Blue;">static</span> MainGameScript Instance
+    {
+        <span style="color:Blue;">get</span>
+        {
+            <span style="color:Blue;">if</span>(instance == <span style="color:Blue;">null</span>)
+            {
+                Debug.LogError(<span style="color:#A31515;">&quot;MainGameScript instance does not exist&quot;</span>);     
+            }
+            <span style="color:Blue;">return</span> instance;   
+        }
+    } 
+</pre></div>
+
+<p>Normally, we could ensure that only one instance of the class gets created by making the constructor private: </p>
+
+ <div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> MainGameScript() { }
+</pre></div>
+
+<p>But as you are unable to create instances of classes that inherit from MonoBehaviour by use of the 'new' keyword, this isn't necessary.</p>
+
+<h2>Functions</h2>
+
+<h3>void Awake()</h3>
+
+<p>The first thing we do in the class is to assign the instance of the class to the 'instance' variable.  This will allow other classes to use access the instance through the 'Instance' attribute.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">void</span> Awake()
+    {
+        instance = <span style="color:Blue;">this</span>; 
+    }
+</pre></div>
+
+<h3>IEnumerator Start()</h3>
+
+<p>The reason why we're making the Start function return an IEnumerator is because it is going to be ran as a Coroutine.  And the reason we're going to do that is we want to ensure that all other game objects have been set up by the time we call the MainGameLoop function.</p>
+
+<p>We start off by initializing a few of the member variables.  We set the maximum time between triggering moles to be 3 seconds (timeLimitMS) and we set the maximum amount of moles that can be active at any one time to be 3.  Both of these can be changed to what you prefer.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    IEnumerator Start () 
+    {
+        gameEnd = <span style="color:Blue;">false</span>;
+        timeLimitMS = 3000;
+        score = 0;
+        moleLimit = 3;
+</pre></div>
+
+<p>Then we call the yield statement which passes control back, but also let's us continue from this point in the function next frame.  By the next frame, all other game objects should have been set up and initialized so it will be safe to call our MainGameLoop.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+        yield <span style="color:Blue;">return</span> 0;  <span style="color:Green;">// wait for the next frame!</span>
+
+        dustAnimator.gameObject.SetActive(<span style="color:Blue;">false</span>);
+        StartCoroutine(MainGameLoop());
+    }
+</pre></div>
+
+<h3>void Update()</h3>
+
+<p>We are primarily using the Update function to ascertain whether a mole has been legitimately whacked, and to trigger the dust animation if it has been (not that there's any reason whacking a mole would result in a lot of dust, but we have the animation so might as well use it).</p>
+
+<p>In order to see if a mole has been whacked, we are going to use Unity's Ray and RayCast functionality.  We could do this ourselves by getting mouse positions, checking sprite positions, collision boxes etc. but the Ray stuff makes things a whole lot easier.</p>
+
+<p>Firstly we check to see if the mouse button has been clicked as that's what we are using to whack the moles.  If that is true then we continue on to see if the click was within the mole's collision box.</p>
+
+<p>For more in depth details about the Ray functionality we're using, you can look view the various Unity documentation pages <a href="http://docs.unity3d.com/Documentation/ScriptReference/Ray.html">here</a>, <a href="http://docs.unity3d.com/Documentation/ScriptReference/Camera.ScreenPointToRay.html">here</a>, <a href="http://docs.unity3d.com/Documentation/ScriptReference/RaycastHit.html">here</a>, and <a href="http://docs.unity3d.com/Documentation/ScriptReference/Physics.Raycast.html">here</a>.</p>
+
+<p>In a nutshell, however, we convert the point at which the mouse was clicked into a 'Ray' that fires into the screen, and check to see if that ray hits any colliders in the scene.  If it does, we then check which mole the collider belongs to.  We then call the 'Whack' function on that mole, which in turn changes the sprite, and then call the 'CallAnim' function which will move our dust animated sprite to the correct location on screen and trigger the animation.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">void</span> Update()
+    {
+        <span style="color:Blue;">if</span>(Input.GetButtonDown (<span style="color:#A31515;">&quot;Fire1&quot;</span>))
+        {
+            Ray ray = gameCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit = <span style="color:Blue;">new</span> RaycastHit();
+
+            <span style="color:Blue;">if</span>(Physics.Raycast(ray, <span style="color:Blue;">out</span> hit))
+            {
+                <span style="color:Blue;">foreach</span>(MoleScript mole <span style="color:Blue;">in</span> moles)
+                {
+                    <span style="color:Blue;">if</span>(mole.sprite.gameObject.activeSelf &amp;&amp; mole.ColliderTransform == hit.transform)
+                    {
+                        mole.Whack();
+                        StartCoroutine(CallAnim(mole));
+                    }
+                }
+            }
+        }
+</pre></div>
+
+<h3>private IEnumerator MainGameLoop()</h3>
+
+<p>Again, by harnessing the power of Coroutines, our main game loop is short and simple.</p>
+
+<p>We start of by creating and initializing a variable which holds, in seconds, how long the player has to hit the mole.  To make the game more challenging, we will be reducing this amount of time by one hundredth of a second for each mole that appears.  We also set up a variable to hold which mole we have randomly picked to be triggered.</p>
+
+<p>The while loop cycles around until the game has ended.  It waits until it is okay to trigger a mole from its hole by checking that we aren't at our maximum amount of active moles.  We wait for a random amount of time between 1 seconds and timeLimitMS/1000 seconds (which we had previously set to 3000), then randomly pick a mole, check that it isn't already active (and if it is, pick another one), and then trigger it.  Finally, to make the game more difficult as it progresses we reduce the amount of time the player has to hit the mole.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator MainGameLoop()
+    {
+        <span style="color:Blue;">float</span> hitTimeLimit = 1.0f;
+        <span style="color:Blue;">int</span> randomMole;
+
+        <span style="color:Blue;">while</span>(!gameEnd)
+        {
+            yield <span style="color:Blue;">return</span> StartCoroutine(OkToTrigger());
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">new</span> WaitForSeconds((<span style="color:Blue;">float</span>)Random.Range(1, timeLimitMS) / 1000.0f);
+
+            randomMole = (<span style="color:Blue;">int</span>)Random.Range(0, moles.Count - 1);
+
+            <span style="color:Blue;">while</span>(moles[randomMole].sprite.gameObject.activeSelf)
+            {
+                randomMole = (<span style="color:Blue;">int</span>)Random.Range(0, moles.Count - 1);
+            }
+
+            moles[ randomMole ].Trigger(hitTimeLimit);
+            hitTimeLimit -= hitTimeLimit &lt;= 0.0f ? 0.0f : 0.01f; <span style="color:Green;">// Less time to hit the next mole</span>
+
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;
+        }
+    }
+</pre></div>    
+
+<h3>private IEnumerator OkToTrigger()</h3>
+
+<p>There's not much to be said about this function, except that it loops around until we are under the limit for the amount of active moles we're allowed in the game, at which point it lets the MainGameLoop function continue on.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator OkToTrigger()
+    {
+        <span style="color:Blue;">int</span> molesActive;
+
+        <span style="color:Blue;">do</span>
+        {
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;
+            molesActive = 0;
+
+            <span style="color:Blue;">foreach</span>(MoleScript mole <span style="color:Blue;">in</span> moles)
+            {
+                molesActive += mole.sprite.gameObject.activeSelf ? 1 : 0;
+            }
+        }
+        <span style="color:Blue;">while</span>(molesActive &gt;= moleLimit);
+
+        yield <span style="color:Blue;">break</span>;
+    }
+</pre></div>
+
+<h3>private IEnumerator CallAnim(MoleScript mole)</h3>
+
+<p>This function handles the dust animation that is played after the mole is hit and goes back into its hole.  We're making it a co-routine as we want to add a slight delay before it is played in order to see the change in the mole sprite ('normal' sprite to 'hit' sprite) and it also helps us when using the Instantiate functionality.</p>
+
+<p>As we just created one dust animated sprite in our game and there may be more than one animation required to be on screen at any one time, we create a clone of our dust animated sprite using the Instantiate Unity function.  Because we are calling this function as a Coroutine, the clones we create will all be independant of each other even though they have the same name (NewAnimator).  This makes things <em>much</em> easier as we don't have to manage them at all.</p>
+
+<p>After we've created the clone (using the position of the mole to place the new animated sprite), we set it to active and start to play it.  A while loop is used to check when the animation has finished, again making good use of 'yield', then finally destroying the clone after the animation has finished.</p>
+
+<p>Remember to destroy the <em>gameObject</em> of the clone you created, not just the object itself! </p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">private</span> IEnumerator CallAnim(MoleScript mole)
+    {
+        yield <span style="color:Blue;">return</span> <span style="color:Blue;">new</span> WaitForSeconds(0.25f);
+
+        tk2dSpriteAnimator newAnimator;
+        newAnimator = Instantiate(dustAnimator, <span style="color:Blue;">new</span> Vector3(mole.transform.position.x, mole.transform.position.y,
+                        dustAnimator.transform.position.z), dustAnimator.transform.rotation) <span style="color:Blue;">as</span> tk2dSpriteAnimator; 
+        newAnimator.gameObject.SetActive(<span style="color:Blue;">true</span>);
+        newAnimator.Play(<span style="color:#A31515;">&quot;DustCloud&quot;</span>);
+
+        <span style="color:Blue;">while</span>(newAnimator.IsPlaying(<span style="color:#A31515;">&quot;DustCloud&quot;</span>))
+        {
+            yield <span style="color:Blue;">return</span> <span style="color:Blue;">null</span>;    
+        }
+
+        Destroy(newAnimator.gameObject);
+    }
+</pre></div>    
+
+<h3>public void RegisterMole(MoleScript who)</h3>
+
+<p>As mentioned in the MoleScript summary page, we are giving each mole object its own responsibility for registering itself with the MainGameScript class.  It makes the code a lot simpler.  Each MoleScript calls this function, and the object gets added to the list.</p>
+
+<div style="color:Black;background-color:White;"><pre>
+    <span style="color:Blue;">public</span> <span style="color:Blue;">void</span> RegisterMole(MoleScript who)
+    {
+        moles.Add(who);
+    }
+</pre></div>    
+</div></body></html></body>
+</html>

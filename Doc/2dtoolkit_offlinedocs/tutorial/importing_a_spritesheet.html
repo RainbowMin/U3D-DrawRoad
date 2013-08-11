@@ -1,0 +1,50 @@
+<html>
+<head><title>Importing a Spritesheet</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Importing a Spritesheet</h1>
+
+<p>You can import sprite sheets into 2D Toolkit for use directly. We'll walk through importing the sprite sheet shown below.</p>
+
+<p><img src="img/blocks1.png" alt="img/blocks1.png">
+This sprite sheet is from <a href="http://www.widgetworx.com/widgetworx/portfolio/spritelib.html">SpriteLib</a>.</p>
+
+<ol>
+<li><p>Create a new sprite collection and open the sprite collection editor, or open an existing one.</p></li>
+<li><p>Click on "Create > Sprite Sheet"</p></li>
+<li><p>Drag your sprite sheet texture into the slot shown below.</p>
+
+<p><img src="img/spritesheet_1.png" alt="img/spritesheet_1.png"></p></li>
+<li><p>If your texture isn't set up correctly, you'll be presented with a message warning you to set it up correctly. Click on <strong>Set up</strong> to let 2D Toolkit automatically make the necessary changes.</p></li>
+<li><p>You will now be able to enter tile parameters. While you change the parameters, the slices will be overlaid in red.</p>
+
+<blockquote>
+  <p>You can zoom in or out using the mouse wheel / finger gestures.</p>
+</blockquote>
+
+<p><img src="img/spritesheet_2.png" alt="img/spritesheet_2.png"></p>
+
+<p><img src="img/spritesheet_def.png" alt="img/spritesheet_def.png"></p></li>
+<li><p>Once you are happy with the settings, click <strong>Apply</strong> to slice the texture. You will now be in "Edit mode".</p></li>
+<li><p>In edit mode, you can click on tiles in the spritesheet and set up parameters on them individually. Control/command click to add to/remove from selection, or click + drag to rectangle select. In this case, we'll delete all the black tiles, so simply multi-select them, and click on delete as shown below.</p>
+
+<p><img src="img/spritesheet_3.png" alt="img/spritesheet_3.png"></p>
+
+<blockquote>
+  <p>These textures no longer be used in the final atlas. Should you wish to add these tiles back in, simply switch to the config panel, and click apply again to reslice. Any existing tiles will simply be left as is.</p>
+</blockquote></li>
+<li><p>Click commit to save all changes. You will now be able to use this sprite collection like any other. Any changes to the source spritesheet will automatically trigger a rebuild of the sprite collection, as it does with any normal sprite.</p></li>
+</ol>
+</div></body></html></body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head><title>Sprite Optimizations using 2D Toolkit</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../../dot.png">
+<a href="../../index.html">Documentation</a>
+<img src="../../dot.png">
+<a href="../../html/annotated.html">Script Reference</a>
+<img src="../../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Sprite Optimizations using 2D Toolkit</h1>
+
+<h4>This article was originally published in <a href="http://unity3d.com/unity/asset-store/in-depth/issue4">Issue 4 of the Asset Store Newsletter</a>.</h4>
+
+<p>2D Toolkit is an efficient and fast 2D sprite and text system developed by <a href="http://www.unikronsoftware.com/2dtoolkit">Unikron Software</a>. The primary focus of the product is on mobile performance and workflow efficiency - and has heaps of features geared towards this.</p>
+
+<p>In this tutorial we'll introduce the new Sprite Collection Editor interface introduced in version 1.60, and extended greatly in 1.70 - and then go through some of the optimization features provided by 2D Toolkit.</p>
+
+<h2>Installation</h2>
+
+<p>Once you download 2D Toolkit from the Asset Store and import it into your project, you should be ready to go. You can upgrade directly from the Asset Store - if you're using JavaScript, follow the steps below to get everything going again!</p>
+
+<h2>What if I need to use JavaScript?</h2>
+
+<p>2D Toolkit is distributed as a full source package, and we'd like to keep it that way - its great being able to dissect the source code, and customize it to your needs. There is a minor inconvenience if you're using JavaScript - you will need to run to run the "Setup for JavaScript" menu command under the "2D Toolkit" menu. This will move the script files to the correct directory structure to be accessible from JavaScript.</p>
+
+<p>If you're upgrading from a previous version - Make sure you restart Unity after importing the latest package, and run the "Setup for JavaScript" command once Unity has restarted.</p>
+
+<h2>What is a Sprite Collection?</h2>
+
+<p>A sprite collection is simply what the name says on the can - a collection of sprites. These sprites are run through a sequence of processes by 2D Toolkit and finally packed into one or more atlases and geometry cached for them. Sprite geometry doesn't necessarily have to be square, which lets us do very interesting optimizations, some of which we will cover below.</p>
+
+<h2>Creating a new Sprite Collection.</h2>
+
+<p>First, we'll start by creating a directory to host the sprite collection. This isn't necessary, but its good practice. Select the directory, and click on Project Window > Create > tk2d > Sprite Collection. </p>
+
+<p>Once you have created the Sprite Collection, it is important to name it so you'll be able to quickly select it later. We called ours "Tutorial Sprites". Click on "Open Editor…" in the inspector to bring up the Sprite Collection Editor window.</p>
+
+<p>It's a good idea to dock this window so you will be able to drag textures into it. What we will do now is drag a few textures as shown below. The sprites we are using are from /Assets/TK2DROOT/tk2d_demo/demospritecollection/sprites, which you should have if you imported the full package. Simply shift select all the textures you'd like to import and drag them to the "Drop sprites here" box as shown below.</p>
+
+<p><img src="img/img1.png" alt="img/img1.png"></p>
+
+<p><img src="img/img2.png" alt="img/img2.png"></p>
+
+<p>The newly dropped textures will automatically be selected in the Sprite Collection editor. You can now perform batch changes to any of the parameters you see in the inspector panel to the right.</p>
+
+<p>Once you are happy with your sprite collection, click on Commit to save and create the atlases. If you used the same textures we did, you'll be presented with the following message - "Unable to fit textures in requested atlas area".</p>
+
+<p>The default atlas size is 1024, so we'll increase this to 2048 temporarily to allow the textures to fit. Click on "Settings" and change "Max Atlas Size" to 2048, and click Commit again. You should see that the created atlas is 1024x2048 (10.7 MB), and there is 76.94% wasted space in it! This clearly isn't a good use of texture space so we'll try to fix this.</p>
+
+<p>Click on atlas0_material in the materials foldout to locate it in the Project window, and then click on atlas0 in the same folder to view the texture. We've spotted the problem. There is one rather huge texture in the atlas.</p>
+
+<p><img src="img/img3.png" alt="img/img3.png"></p>
+
+<p>Turns out this texture is used as a background texture, and has quite a bit of empty space (0 alpha transparent regions) in it and as such is a perfect candidate for Sprite Dicing.</p>
+
+<h2>Sprite Dicing.</h2>
+
+<p>Sprite dicing is a feature unique to 2D Toolkit which allows the system to split up a large texture into much smaller chunks, individually trimming these chunks, and seamlessly reconstructing the sprite in the viewport. </p>
+
+<p>Select bg1 in the Sprite Collection Editor. Tick Dice in the inspector for this texture. The 2 parameters below are the chunk sizes to split the original texture into. Click on Commit with these default values, and look at the atlas texture again. It has now been reduced to 512x1024 (2.7MB), which is significantly smaller than the original texture. You can experiment with the 2 dice parameters to see what produces the best results.</p>
+
+<p>Sprite dicing not only saves atlas space, but also fillrate and is a useful optimization on mobile platforms.</p>
+
+<p><img src="img/img4.png" alt="img/img4.png"></p>
+
+<h2>Creating Sprites in the Viewport.</h2>
+
+<p>The sprite collection has been created by default to display pixel perfect on a 960x640 display, with an orthographic camera with a size of 1. This is set up in the Settings overlay in the Sprite Collection editor, and you may change them if you're targeting a different resolution.</p>
+
+<p><img src="img/img5.png" alt="img/img5.png"></p>
+
+<p>In this tutorial, however, we'll simply use the defaults and set up a camera to match this. </p>
+
+<ol>
+<li>Create a new scene.</li>
+<li>Select Main Camera and change the Projection to Orthographic and Size to 1 to match the Sprite Collection.</li>
+<li>Create a sprite by clicking on Create > tk2d > Sprite.</li>
+<li>Set Collection to "TutorialSprites" and Sprite to "bg1" and on the Sprite inspector.</li>
+</ol>
+
+<p>The background sprite we diced in the previous step should appear in the viewport. Zooming in closer shows what 2D Toolkit has done to optimize this sprite. (Image contrast increased to highlight polygons). The sprite has been broken down into smaller chunks, and the empty (0 alpha) space removed.</p>
+
+<p><img src="img/img6.png" alt="img/img6.png"></p>
+
+<p>This is an incredibly powerful optimization - but 2D Toolkit 1.70 introduces another feature which lets you take this further.</p>
+
+<h2>Custom Sprite Shapes.</h2>
+
+<p>Sprite dicing solves one set of problems, and is limited to shapes where the sprites can be reliably diced along the x and y axes. In some cases (hex and isometric tilesets), it may not work as well. Lets see what we can do to optimize the following sprite - its called "starspike" and should be in your sprite collection if you've followed the steps so far.</p>
+
+<p>Select it in the Sprite Collection Editor, and now, tick "Custom Shape". You should see a green outline around the sprite. Hint - you can use the mousewheel / two finger swipe gesture to zoom in to the sprite preview area.</p>
+
+<p><img src="img/img7.png" alt="img/img7.png"></p>
+
+<p>What we can do now is modify this geometry to tightly fit the sprite.</p>
+
+<p><img src="img/img8.png" alt="img/img8.png"></p>
+
+<p>Click commit, create the sprite in the scene view. You'll find that it looks like this (triangle edges enhanced) -</p>
+
+<p><img src="img/img9.png" alt="img/img9.png"></p>
+
+<p>While this approach hasn't saved any texture space, it has saved tremendous amounts of fillrate - always a good thing on mobile platforms.</p>
+
+<p>Using custom sprite shapes also allows you to make sprites "solid" instead of semitransparent. This can be an important optimization for tilemaps. Consider the following annotated screenshot. The tilemap editor seamlessly works with these sprite collections and creates splits in meshes where necessary for transparent materials and opaque materials. That brings us to the last topic in this tutorial. </p>
+
+<p><img src="img/img10.png" alt="img/img10.png"></p>
+
+<h2>Material Overrides.</h2>
+
+<p>When working with tilemaps mainly, and in other scenarios too, it may be beneficial to make some sprites solid where possible. Material overrides let you do just that - it lets you share the same atlas, but use different materials for some of the sprites.</p>
+
+<p>You can create a material override by clicking on the "+" button next to the Materials dropdown. This creates a duplicate of the current material, which you can then edit and reconfigure as you see fit. You will then be able to override individual or multi-selected sprites to use this material.</p>
+
+<p><img src="img/img11.png" alt="img/img11.png"></p>
+
+<p><img src="img/img12.png" alt="img/img12.png"></p>
+
+<p><img src="img/img13.png" alt="img/img13.png"></p>
+
+<h2>Conclusion.</h2>
+
+<p>We've covered some of the powerful optimization opportunities in 2D Toolkit. This isn't all though - 2D Toolkit provides tons more features which makes it easy and efficient to make your game with.</p>
+</div></body></html></body>
+</html>

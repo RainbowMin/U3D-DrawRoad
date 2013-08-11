@@ -1,0 +1,82 @@
+<html>
+<head><title>The tk2d Camera</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>The tk2d Camera</h1>
+
+<p>The tk2dCamera is a solution to make it a lot simpler to work with the Unity camera in 2D, and to make it automatically work with various resolutions with very little effort.</p>
+
+<h2>Important note</h2>
+
+<p>In order for sprites to work seamlessly with tk2dCamera, you should create your sprite collection / fonts with <strong>exactly</strong> the same settings as the camera you're going to be viewing it from. The easiest way to do this is to create your sprite collections after you have created your camera as 2D Toolkit will automatically detect settings for newly created sprite collections if there is a tk2dCamera already present in the scene.</p>
+
+<p><img src="img/tk2dcamera_tickbox.png" alt="tk2dcamera_tickbox"></p>
+
+<h2>Creating a tk2dCamera</h2>
+
+<ol>
+<li><p>Create a new scene and begin by deleting the default Unity "Main Camera".</p></li>
+<li><p>Create a tk2dCamera by clicking on "Create > tk2d > Camera" in the Hierarchy Window. Alternatively, you can find this menu in "GameObject > Create Other > tk2d > Camera".</p>
+
+<p><img src="img/tk2dcamera_create.png" alt="tk2dcamera_create"></p></li>
+<li><p>Set up the Native Resolution to the resolution you want your game to run at by default. We've picked 1024 x 768. Set up the projection parameters. In this example, we want the camera set up to work at 1 pixels per meter - This is a convenient setting, as you can position things in the scene by interchanging pixel locations with world positions.<br>
+Refer to <a href="choosing_camera.html">Choosing a camera</a> on some notes on how to pick an appropriate camera size.</p>
+
+<p><img src="img/tk2dcamera_settings.png" alt="tk2dcamera_settings"></p></li>
+<li><p>tk2dCamera tries to work out the preview resolution (Game Window resolution) automatically. Simple set the Unity Game window resolution to the resolution you want to preview your game at. In this case, we'll be picking the same resolution as the native resolution (1024x768).</p>
+
+<p><img src="img/tk2dcamera_gamewindowresolution.png" alt="tk2dcamera_gamewindowresolution"></p></li>
+<li><p>Add a sprite to the scene. Refer to <a href="creating_a_sprite_in_the_editor.html">Creating a Sprite in the Editor</a>. Set 'Collection' to <strong>DemoCameraSpriteCollection</strong> and 'Sprite' to <strong>heart_empty</strong> if not already selected. </p>
+
+<blockquote>
+  <p>If you picked a sprite from a different sprite collection, and that sprite isn't set up correctly for the tk2dCamera you're using, the sprite might appear smaller or bigger than it should be. <b>Click on the "1:1" button to fix this.</b></p>
+</blockquote></li>
+<li><p>Position the sprite at (100, 100) by entering those numbers into the X and Y components of the transform. This works on this configuration, as the tk2dCamera is set up with 1 pixel per meter - so 100x100 world units = 100x100 pixels from the bottom left. If you picked a different pixels per meter ratio, the units will be relatively scaled. Eg. at 10 pixels per meter, 10.0 and 10.0 would map to (100, 100) pixels from the bottom of the screen.</p>
+
+<p><img src="img/tk2dcamera_tutorial_transform.png" alt="tk2dcamera<em>tutorial</em>transform"></p></li>
+</ol>
+
+<h2>Overrides</h2>
+
+<p>A tk2dCamera can resize itself based on the resolution its running at. Overrides tell the tk2dCamera what to do when running at a resolution different to the native resolution.</p>
+
+<p>You can preview what you'd get at different resolutions by setting different game window resolutions.</p>
+
+<p>Read more about overrides and what the settings do in the <a href="../reference/tk2dCamera.html">reference</a> page.</p>
+
+<h2>Anchors</h2>
+
+<p>The tk2d camera also supports anchors. These anchors will anchor themselves to one of the 9 parts of the screen (corners &amp; centers). You may also specify an offset in pixels for these anchors. The coordinate system for the anchors is exactly the same as the coordinate system for the camera - an offset of (-100, 20) means 100 pixels to the left, and 20 pixels up in our demo.</p>
+
+<ol>
+<li><p>Select the tk2dCamera created in the previous step.</p></li>
+<li><p>Create an anchor by clicking on "Create > tk2d > Camera Anchor" in the Hierarchy Window. Alternatively, you can find this menu in "GameObject > Create Other > tk2d > Camera Anchor".  </p>
+
+<p><img src="img/tk2dcamera_createanchor.png" alt="tk2dcamera_createanchor"></p></li>
+<li><p>You can now set it up by setting the <strong>Anchor</strong> point and <strong>Offset</strong> parameters.</p>
+
+<p><img src="img/tk2dcamera_anchor.png" alt="tk2dcamera_anchor"></p></li>
+<li><p>The anchor will always be positioned based on the parameters above. Any sprites attached to it will always be anchored to that relative position.<br>
+Eg. The hearts below are anchored to a "Top right" anchor and simply positioned using the transform widget. Observe that the position of the sprites remains constant relative to the screen corner its attached to.</p>
+
+<p>Scene at 480x320</p>
+
+<p><img src="img/tk2dcamera_anchordemo1.png" alt="tk2dcamera_anchordemo1"></p>
+
+<p>Same scene at 320x240</p>
+
+<p><img src="img/tk2dcamera_anchordemo2.png" alt="tk2dcamera_anchordemo2"></p></li>
+</ol>
+</div></body></html></body>
+</html>

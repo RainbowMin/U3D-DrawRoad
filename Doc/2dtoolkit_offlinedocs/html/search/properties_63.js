@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['cameraisortho',['CameraIsOrtho',['../classtk2d_pixel_perfect_helper.html#a139d8c3d70eda01f0fa2ec9dcdd76541',1,'tk2dPixelPerfectHelper']]],
+  ['camerasettings',['CameraSettings',['../classtk2d_camera.html#a49a2d6dfc210756d7469cdf81111f8dd',1,'tk2dCamera']]],
+  ['clipbottomleft',['clipBottomLeft',['../classtk2d_clipped_sprite.html#a002c650f1eb8f6c89137727011eee1a4',1,'tk2dClippedSprite']]],
+  ['clipfps',['ClipFps',['../classtk2d_sprite_animator.html#ad5f3b8cb62b9a112c78c9f557a174efb',1,'tk2dSpriteAnimator']]],
+  ['cliprect',['ClipRect',['../classtk2d_clipped_sprite.html#aaf2f2e25fa342efcba54db1c756360cc',1,'tk2dClippedSprite']]],
+  ['cliptimeseconds',['ClipTimeSeconds',['../classtk2d_sprite_animator.html#a498adf40b9d96d8271abf8e6a4d25ffa',1,'tk2dSpriteAnimator']]],
+  ['cliptopright',['clipTopRight',['../classtk2d_clipped_sprite.html#ae71e438f552cff350db9ef1583d4f617',1,'tk2dClippedSprite']]],
+  ['collection',['Collection',['../classtk2d_base_sprite.html#ad26f0658c26e760f85875c569799da1d',1,'tk2dBaseSprite']]],
+  ['color',['color',['../classtk2d_text_mesh.html#a319ff8c4d18adb295c979136a12ff8d0',1,'tk2dTextMesh.color()'],['../classtk2d_base_sprite.html#a5d4ebfe62471814a5ad6682697505c8a',1,'tk2dBaseSprite.color()']]],
+  ['color2',['color2',['../classtk2d_text_mesh.html#a18fc700f76a97dda1e8444a9b285cb42',1,'tk2dTextMesh']]],
+  ['colorchannel',['ColorChannel',['../classtk2d_tile_map.html#a0ab00aa601a20d329619a0db3723ec27',1,'tk2dTileMap']]],
+  ['count',['Count',['../classtk2d_sprite_collection_data.html#a6d40ff882ae6672a76491db8b0a21105',1,'tk2dSpriteCollectionData']]],
+  ['createboxcollider',['CreateBoxCollider',['../classtk2d_clipped_sprite.html#a280bccf99127fc3bead3697233703552',1,'tk2dClippedSprite.CreateBoxCollider()'],['../classtk2d_sliced_sprite.html#ab016e52af991bfabcb1529332f1dadc7',1,'tk2dSlicedSprite.CreateBoxCollider()'],['../classtk2d_tiled_sprite.html#ab6cda00b518d70920524b406b223d8a7',1,'tk2dTiledSprite.CreateBoxCollider()']]],
+  ['currentclip',['CurrentClip',['../classtk2d_sprite_animator.html#abdec7c41dbe5fefa20536c6f2a26e186',1,'tk2dSpriteAnimator']]],
+  ['currentframe',['CurrentFrame',['../classtk2d_sprite_animator.html#a17294298e5c6149236250ae865425530',1,'tk2dSpriteAnimator']]],
+  ['currentresolutionoverride',['CurrentResolutionOverride',['../classtk2d_camera.html#aa0d1f40fae4624828890d9ec4b3c74a2',1,'tk2dCamera']]],
+  ['currentsprite',['CurrentSprite',['../classtk2d_base_sprite.html#a360baa8c9dc944931f8af799da5b4781',1,'tk2dBaseSprite']]]
+];

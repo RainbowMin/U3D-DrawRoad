@@ -1,0 +1,50 @@
+<html>
+<head><title>Creating a Sprite Animation</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Creating a Sprite Animation</h1>
+
+<p>This tutorial will show you how to create a Sprite Animation. We will be using some additional sprites for this example which aren't distributed with the toolkit. You can download these sprites from <a href="img/charactersprites.zip">here</a>. These sprites are from <a href="http://www.widgetworx.com/widgetworx/portfolio/spritelib.html">SpriteLib</a>.</p>
+
+<ol>
+<li><p>Extract the textures into your Unity project workspace. We put ours in /Assets/Walkthrough/animation/sprites.</p>
+
+<p><img src="img/spritesinproject190.png" alt="img/spritesinproject190.png"></p></li>
+<li><p>Create a sprite collection and add all these sprites to the collection. The newly added sprites will all be selected. Before you click Commit, set the Anchor to LowerLeft and click apply - this will set all the anchors on all newly created sprites to the lower left.</p>
+
+<p><img src="img/spritesetup190.png" alt="img/spritesetup190.png"></p></li>
+<li><p>Click commit on the sprite collection. This is the sprite collection set-up done.</p>
+
+<p><img src="img/spritescommit190.png" alt="img/spritescommit190.png"></p></li>
+<li><p>We will now proceed to create the Sprite Animation. Create it in the collection by selecting "Create > tk2d > Sprite Animation" in the Project Window. Name it CharacterAnims.</p>
+
+<p><img src="img/createspriteanimation190.png" alt="img/createspriteanimation190.png"></p></li>
+<li><p>Select the newly created sprite animation in the project window, and open the sprite animation editor by clicking Open Editor.</p>
+
+<p><img src="img/openspriteanimeditor190.png" alt="img/openspriteanimeditor190.png"></p></li>
+<li><p>Click "Create > Clip" in the sprite animation editor. This will create a new clip which you can edit.</p>
+
+<p><img src="img/addclip190.png" alt="img/addclip190.png"></p></li>
+<li><p>Name the newly created clip "idle". Set up the window as shown below.</p>
+
+<p><img src="img/idleclip190.png" alt="img/idleclip190.png"></p></li>
+<li><p>Create a new clip and name it "walk". Select the first frame (walk1) and click AutoFill1..9. All the rest of the frames will be automatically added. Autofill1..9 finds frames numbered sequentially from the currently selected frame.</p>
+
+<p><img src="img/walk190.png" alt="img/walkclip190.png"></p></li>
+<li><p>Add another clip and call it "hit". Add the first frame of the clip (hit1) and click AutoFill1..9 to fill the rest of the frames. </p>
+
+<p><img src="img/hitclip190.png" alt="img/hitclip190.png"></p></li>
+</ol>
+</div></body></html></body>
+</html>

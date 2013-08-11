@@ -1,0 +1,50 @@
+<html>
+<head><title>Terminology And Introduction</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="dot.png">
+<a href="index.html">Documentation</a>
+<img src="dot.png">
+<a href="html/annotated.html">Script Reference</a>
+<img src="dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Terminology And Introduction</h1>
+
+<h2>Sprite Collections</h2>
+
+<p>Sprite collections form the core of 2D Toolkit. Think of them as folder of sprites (or rather, a "collection" of sprites). The sprite collection interface sets up sprites and their associated properties, including collider set-up. A sprite collection generates one or more texture atlases, which are used instead of your original images to improve performance.</p>
+
+<h2>Sprites</h2>
+
+<p>Individual components from your sprite collection are instanced as sprites. These should be identical to your source images, though internally they may have gone through various transformations. You can attach scripts to sprites, or control them by other means. 2D Toolkit supports various kinds of sprites - sliced, clipped and tiled.</p>
+
+<h2>Static Sprite Batcher</h2>
+
+<p>The static sprite batcher combines multiple sprites from one sprite collection, and merges them into one object. This merging is non-destructive, so you will be able to reverse it and edit your sprites at a later date. All collider information set-up on the sprite collection is transferred directly into the static sprite batcher, making it invaluable in setting up levels.</p>
+
+<h2>Sprite Animations</h2>
+
+<p>Sprite animations contain animation clips. Animation clips are a sequence of sprites which change over a period of time. Animation clips may also be set up to trigger events while they play, so your code can react to them appropriately. For example, you can set up an event to trigger when the players foot touches the ground, and play an appropriate sound. An animation clip may use a sprite from any number of sprite collections.</p>
+
+<h2>Sprite Animator</h2>
+
+<p>Sprite animators are created in your scene and are attached to a sprite animation. Sprite animators are usually attached to a sprite, and play a clip on the attached sprite.</p>
+
+<h2>Fonts</h2>
+
+<p>Font objects transform text or xml BMFonts to be consumed by TextMeshes. Font objects can also be attached to sprite collections, allowing them to batch with sprites.</p>
+
+<h2>Text Meshes</h2>
+
+<p>Text meshes use Font objects to display a string of text. Text meshes are given a maximum length of text they can display, so they don't have to constantly reallocate memory.</p>
+
+<h2>Tilemaps</h2>
+
+<p>The tilemap system allows you to use your sprites in a tile-map - effectively building a large map out of repeated sprites. The resulting mesh and colliders are very optimized, and is far more efficient than to manually place sprites / or using the static sprite batcher to get similar results.</p>
+</div></body></html></body>
+</html>

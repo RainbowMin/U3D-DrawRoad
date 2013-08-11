@@ -1,0 +1,38 @@
+<html>
+<head><title>Sliced Sprite</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Sliced Sprite</h1>
+
+<p><img src="img/slicedsprite.png" alt="Sliced Sprite"></p>
+
+<p><strong>Create Box Collider</strong> - If ticked, a tight fitting box collider will be created around this sprite. You can adjust the collider depth on the collider itself.</p>
+
+<p><strong>Anchor</strong> - Selects the anchor for this sliced sprite.</p>
+
+<p><strong>Dimensions (Pixel Units)</strong> - This is the dimensions of the sliced sprite in pixel units. Pixel units in this case are pixels in the source texture. So, if your sliced sprite source image is 8x8, then if the dimensions were set to 8x8, the size of the sprite would match the original sprite itself. A size of 16x16 would make it twice the size of the original sprite.</p>
+
+<p>You can also use the scale parameter to uniformly scale the entire sliced sprite, much like how transform.scale works.</p>
+
+<p><strong>Border</strong> - This it the number of pixels which marks the edge border.</p>
+
+<p>When a sliced sprite is scaled, only the middle sections of the sprite are affected, as illustrated below.</p>
+
+<p><img src="img/slicedsprite_annotated.png" alt="SlicedSpriteAnnotated"></p>
+
+<p><strong>Draw Border Only</strong> - When ticked, only the border region will be drawn on the sprite, as shown below.</p>
+
+<p><img src="img/slicedsprite_borderonly.png" alt="SlicedSpriteBorderOnly"></p>
+</div></body></html></body>
+</html>

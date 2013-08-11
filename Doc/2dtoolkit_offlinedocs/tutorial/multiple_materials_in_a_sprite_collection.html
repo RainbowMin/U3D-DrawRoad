@@ -1,0 +1,39 @@
+<html>
+<head><title>Multiple Materials in a Sprite Collection</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Multiple Materials in a Sprite Collection</h1>
+
+<p>In some cases, it may be beneficial to merge multiple sprites into one atlas, but maintaining different materials on these sprites. One example of this is when importing tilesets for a tile map - a majority of them may be solid and there could be significant GPU gains to be had by simply assigning a solid shader to these sprites.</p>
+
+<ol>
+<li><p>Open the sprite collection editor.</p></li>
+<li><p>Click on "Settings" to bring up the settings overlay. </p></li>
+<li><p>Click on "+" next to the materials list as shown below. This will duplicate the material and save a copy in the same directory. You can then click on this material and change the shader on it, etc. You can create as many duplicates as you like.</p>
+
+<p><img src="img/multimaterial_1.png" alt="multimaterial_1"></p>
+
+<blockquote>
+  <p>To delete a copied material, click on the material in the settings overlay once, and press backspace/delete on the keyboard.</p>
+</blockquote></li>
+<li><p>Now when editing sprites, you should see a "Material" dropdown in the inspector. You can change materials on one or more sprites this way.</p>
+
+<p><img src="img/multimaterial_2.png" alt="multimaterial_2"></p>
+
+<blockquote>
+  <p>Clicking on the "Select" button next to the material drop-down will multi-select all sprites using this material.</p>
+</blockquote></li>
+</ol>
+</div></body></html></body>
+</html>

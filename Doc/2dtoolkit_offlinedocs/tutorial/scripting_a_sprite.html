@@ -1,0 +1,97 @@
+<html>
+<head><title>Scripting A Sprite</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Scripting A Sprite</h1>
+
+<p>You can easily access the tk2dSprite behaviour from code to control various parameters. In this example, we will be adding a script to change the color of the box script when a key-press is detected. Create a C# script in your project and call it TutorialSpriteScript. Paste the following code block into the script.</p>
+
+<div class="codefile"><a href="code/TutorialSpriteScript.cs">code/TutorialSpriteScript.cs</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> UnityEngine;
+<span style="color:Blue;">using</span> System.Collections;
+
+<span style="color:Blue;">public</span> <span style="color:Blue;">class</span> TutorialSpriteScript : MonoBehaviour {
+    tk2dSprite sprite;
+
+    <span style="color:Blue;">void</span> Start() {
+        sprite = GetComponent&lt;tk2dSprite&gt;();
+    }
+
+    <span style="color:Blue;">void</span> Update() {
+        <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.A)) {
+            sprite.color = Color.red;
+        }
+        <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.S)) {
+            sprite.color = Color.white;
+        }
+        <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.Q)) {
+            sprite.scale = <span style="color:Blue;">new</span> Vector3(2, 2, 2);
+        }
+        <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.W)) {
+            sprite.SetSprite(<span style="color:#A31515;">&quot;crate&quot;</span>);
+        }
+    }
+}
+</pre></div>
+
+<div class="codefile"><a href="code/TutorialSpriteScript.js">code/TutorialSpriteScript.js</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">#pragma</span> strict
+
+<span style="color:Blue;">private</span> <span style="color:Blue;">var</span> sprite : tk2dSprite;
+sprite = GetComponent(tk2dSprite);
+
+function Update() {
+    <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.A)) {
+        sprite.color = Color.red;
+    }
+    <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.S)) {
+        sprite.color = Color.white;
+    }
+    <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.Q)) {
+        sprite.scale = Vector3(2, 2, 2);
+    }
+    <span style="color:Blue;">if</span> (Input.GetKeyDown(KeyCode.W)) {
+        sprite.SetSprite(<span style="color:#A31515;">&quot;crate&quot;</span>);
+    }
+}
+</pre></div>
+
+<p>Attach this script to the crate sprite, and press play to start the game. Observe that you can use the <strong>A, S, Q &amp; W</strong> keys to change various properties of the sprite at runtime.</p>
+
+<p>You can change the scale of the sprite without breaking dynamic batching by:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+sprite.scale = <span style="color:Blue;">new</span> Vector3(xScale, yScale, zScale);
+</pre></div>
+
+<p>You can also change the displayed sprite by doing:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+sprite.SetSprite(<span style="color:#A31515;">&quot;crate&quot;</span>);
+</pre></div>
+
+<p>Note that the name is case sensitive.</p>
+
+<p>And you can cache the spriteId and use that instead for better performance:</p>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">int</span> spriteId = sprite.GetSpriteIdByName(<span style="color:#A31515;">&quot;Rock&quot;</span>);
+sprite.SetSprite(spriteId);
+</pre></div>
+</div></body></html></body>
+</html>

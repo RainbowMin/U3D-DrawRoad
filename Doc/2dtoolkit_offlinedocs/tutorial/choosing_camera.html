@@ -1,0 +1,64 @@
+<html>
+<head><title>Choosing a camera for your project.</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Choosing a camera for your project.</h1>
+
+<p>While 2D Toolkit lets you use any Unity camera with it without restriction, it provides the tk2dCamera to make it easier to deal with 2D scenes. As of 2D Toolkit 2.1, you can configure a tk2dCamera the same way you'd configure any Unity cameras (in the Camera tab). </p>
+
+<p>The tk2dCamera is now the recommended way to set up scenes, but 2D Toolkit will still work just fine with normal orthographic or perspective cameras.</p>
+
+<h2><a href="tk2dCamera.html">tk2dCamera</a></h2>
+
+<p>The tk2dCamera encapsulates the Unity camera and adds essential metadata and helper functions to make it especially suitable for 2D scenes. The key differences between the tk2dCamera and a normal ortho camera are:</p>
+
+<ul>
+<li><p>You need to tell the tk2dCamera the "native" resolution. This native resolution is the resolution you're setting up your scene at initially. The tk2dCamera can rescale / realign / reveal more of the scene to fit different resolutions. This behaviour is set up as Resolution Overrides.</p></li>
+<li><p>The tk2dCamera allows you to set up the orthographic size implicitly, by specifying "Pixels per Meter". This is most useful for setting up scenes with 1 pixel per meter, or something that works better with default Unity Physics settings, eg. 20 pixels per meter.</p></li>
+<li><p>It has a configurable origin - you can either have the origin (0, 0) at the bottom left, or the middle center of the screen.</p></li>
+<li><p>The tk2dCamera has a concept of resolution overrides - think of these as instructions to tell the tk2dCamera what to do when it is running at different resolutions. For instance, you can tell the tk2dCamera to stretch to fit the play area to any aspect ratio your game is being played at.</p></li>
+<li><p>The tk2dCamera has a "ZoomFactor" parameter, independent to the actual size of the camera. This allows you to zoom in or out without having to tweak orthographic sizes.</p></li>
+<li><p>When set up as a perspective camera, you can set-up Camera.transparencySortMode automatically on the camera component itself without having to write any code to do this.</p></li>
+<li><p>Creating sprite collections when a tk2dCamera is present in the scene will automatically configure the sprite collection without any intervention.</p></li>
+<li><p>Read more about the tk2dCamera <a href="tk2dCamera.html">here</a></p></li>
+</ul>
+
+<h2>Tips and tricks.</h2>
+
+<ul>
+<li><p>Picking an orthographic size that works best with default Unity physics.</p>
+
+<p>Pick an ortho size that fits best with the size of your world. What does one screen of information represent in your game? How many meters is it from the top of your screen to the bottom? The most optimal orthographic size is the half the vertical size of your world. If the vertical height of a screen in your game is 28 meters, the orthographic size to pick would be 14.</p>
+
+<p>Note: You can simply add a tk2dCamera, and set pixels per meter instead of orthographic size - this makes it much easier to pick the appropriate values for your scene.</p></li>
+<li><p>Help! I've picked the wrong orthographic size and built my entire game! I just read this and I don't want to rebuild my entire game.</p>
+
+<p>You don't have to. Simply adjust Unity physics to compensate for this. Everything is relative in Unity. You're fine with what you've picked, as long as you are consistent.</p></li>
+<li><p>You can place 2D Toolkit sprites within a 3D scene - they are simply Unity GameObjects after all. A perspective camera is often used to get "parallax" for free - items further away from the camera will need to be scaled up to match the size of the foreground items (hint: use the "1:1" button on the sprite to make them pixel perfect at the distance they are at)</p></li>
+<li><p>Don't forget to set <a href="http://docs.unity3d.com/Documentation/ScriptReference/TransparencySortMode.html">Camera.transparencySortMode</a> to Orthographic if you want your sprites to sort correctly in a perspective camera. If you're using the tk2dCamera, set to Perspective, you will have an option to change this directly in the interface.</p></li>
+</ul>
+
+<h2>Important note</h2>
+
+<p>One of the most important things to remember when working with 2D Toolkit, is that sprites are created to be displayed pixel perfect at a fixed setting. The setting is user configurable, but it means that if you import sprites with a different setting, it won't be pixel perect until you click the "1:1" button.</p>
+
+<h2>Coping with different resolutions.</h2>
+
+<p>2D Toolkit discourages scaling objects based on resolution. In almost every single case, it will be far more efficient to simply adjust your camera to compensate. The tk2dCamera resolution overrides are built specifically to address this.</p>
+
+<h2>Known issues.</h2>
+
+<p>The tk2dCamera has a known issue not displaying lit shaders correctly in Unity 4.0 &amp; 4.1. This works fine in Unity 3.x and will be fixed in the next version of Unity.</p>
+</div></body></html></body>
+</html>

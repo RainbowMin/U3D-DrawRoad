@@ -1,0 +1,127 @@
+<html>
+<head><title>Understanding UI System and Building your Own Components</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><div class="toc">
+    <b>Table of Contents</b>
+    <ul>
+        <li><a href="#understandingmgr">Understanding tk2dUIManager</a></li>
+        <li><a href="#understandingitem">Understanding tk2dUIItem</a></li>
+        <li><a href="#listeningevents">Listening for tk2dUIItem events</a></li>
+        <ul>
+            <li><a href="#listeningeventsexample">Example</a></li>
+        </ul>
+        <li><a href="#advanced">Advanced tk2dUIItem</a></li>        
+        <ul>
+            <li><a href="#advanced">Child of Another UIItem</a></li>
+            <li><a href="#advanced">Register Events From Children</a></li>
+            <li><a href="#advanced">Is Hover Events Enabled</a></li>
+            <li><a href="#advanced">Send Message Target</a></li>
+            <li><a href="#advanced">Automatic Bounds Calculation</a></li>
+        </ul>
+    </ul>
+</div>
+
+<h1>Understanding UI System and Building your Own Components</h1>
+
+<p><a id="understandingmgr"></a></p>
+
+<h2>Understanding tk2dUIManager</h2>
+
+<p>The whole UI system is governed by tk2dUIManager. It contains a loop that looks for touch and mouse events and does raycasts to look for colliders. If a raycast hits a collider, it will check to see if it has tk2dUIItem attached to it.</p>
+
+<p><a id="understandingitem"></a></p>
+
+<h2>Understanding tk2dUIItem</h2>
+
+<p>tk2dUIItem is the base control for all interactive items. To make an item interactive simply add tk2dUIItem to any GameObject with a collider. Once this is complete whenever tk2dUIManager does a raycast (touch and/or mouse interaction) that hit that collider it will begin to fire events.</p>
+
+<p><a id="listeningevents"></a></p>
+
+<h2>Listening for tk2dUIItem events</h2>
+
+<p>List of events you can listen for:</p>
+
+<ul>
+<li><p><strong>OnDown</strong> - Pressed down</p></li>
+<li><p><strong>OnUp</strong> - Unpressed, possibly on exit of collider area without releasing</p></li>
+<li><p><strong>OnClick</strong> - Click - down and up while not leaving collider area</p></li>
+<li><p><strong>OnRelease</strong> - After on down, when touch/click is released (this could be anywhere)</p></li>
+<li><p><strong>OnHoverOver</strong> - On mouse hover over (only if using mouse and hover is enabled (tk2dUIManager.areHoverEventsTracked=true) and if multi-touch is disabled(tk2dUIManager.useMultiTouch=false))</p></li>
+<li><p><strong>OnHoverOut</strong> - On mouse hover, leaving collider (only if using mouse and hover is enabled(tk2dUIManager.areHoverEventsTracked=true) and if multi-touch is disabled(tk2dUIManager.useMultiTouch=false))</p></li>
+<li><p><strong>OnDownUIItem</strong> - Same as OnDown above, except returns this tk2dUIItem</p></li>
+<li><p><strong>OnUpUIItem</strong> - Same as OnUp above, except returns this tk2dUIItem</p></li>
+<li><p><strong>OnClickUIItem</strong> - Same as OnClick above, except returns this tk2dUIItem</p></li>
+<li><p><strong>OnReleaseUIItem</strong> - Same as OnRelease above, except returns this tk2dUIItem</p></li>
+<li><p><strong>OnHoverOverUIItem</strong> - Same as OnHoverOver above, except returns this 
+tk2dUIItem</p></li>
+<li><p><strong>OnHoverOutUIItem</strong> - Same as OnHoverOut above, except returns this tk2dUIItem</p></li>
+</ul>
+
+<p><a id="listeningeventsexample"></a></p>
+
+<h3>An example of listening to events</h3>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">void</span> OnEnable()
+{
+    uiItem.OnDown += ButtonDown;
+    uiItem.OnClickUIItem += Clicked;
+}
+
+<span style="color:Blue;">void</span> ButtonDown()
+{
+    Debug.Log(<span style="color:#A31515;">&quot;Button Down&quot;</span>);
+}
+
+<span style="color:Blue;">void</span> Clicked(tk2dUIItem clickedUIItem)
+{
+    Debug.Log(<span style="color:#A31515;">&quot;Clicked:&quot;</span> + clickedUIItem);
+}
+
+<span style="color:Green;">//Also remember if you are adding event listeners to events you need to also remove them:</span>
+<span style="color:Blue;">void</span> OnDisable()
+{
+    uiItem.OnDown -= ButtonDown;
+    uiItem.OnClickUIItem -= Clicked;
+}
+</pre></div>
+
+<p><a id="advanced"></a></p>
+
+<h2>Advanced tk2dUIItem</h2>
+
+<p>Within tk2dUIItem are some more advanced settings.</p>
+
+<h3>Child of Another UIItem</h3>
+
+<p>This will allow hierarchy parents to listen for events of this child. When checked it will look up the hierarchy and find the next tk2dUIItem and that will be it's ParentUIItem.</p>
+
+<h3>Register Events From Children</h3>
+
+<p>If a hierarchy child of this tk2dUIItem has 'Child of Another UIItem' set to true, this tk2dUIItem will receive all of its events. This allows for complex things like button within buttons systems.</p>
+
+<h3>Is Hover Events Enabled</h3>
+
+<p>Hover events can be disabled to increase performance. If you need hover events simply set this to true. Hover events are disabled automatically when running on multi-touch devices.</p>
+
+<h3>Send Message Target</h3>
+
+<p>While it is recommended you use events, there is built-in Send Message system in the inspector. Simply drag the GameObject (target) you wish to send a message to, into the 'Send Message Target' field. Once complete a list of fields will appear. Type the function name into the desired field. When this event occurs this function will be called via SendMessage.</p>
+
+<h3>Automatic Bounds Calculation</h3>
+
+<p>The tk2dUIItem has some additional functionality to help the editor best-guess a bounding collider. Bounds calculation recursively goes down the hierarchy until another collider is found. You can add objects to the “ignore bounds” array to ignore bounds of certain parts of the hierarchy. You can also consider additional hierarchies by adding them to the “extra bounds” array.</p>
+</div></body></html></body>
+</html>

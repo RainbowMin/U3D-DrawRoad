@@ -1,0 +1,32 @@
+<html>
+<head><title>Version control and 2D Toolkit</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Version control and 2D Toolkit</h1>
+
+<p>A little care should be taken when version controlling a 2D Toolkit project. It is advisible to use <strong>text version control</strong> in Unity where possible - it is much easier to identify and fix issues that way.</p>
+
+<h2>Version control exclusions</h2>
+
+<p>Always exclude these files from version control. These files contain editor assets, and runtime-loadable assets - all of which can be reconstructed by invoking "2D Toolkit > Rebuild Index".</p>
+
+<pre><code>Assets/-tk2d
+Assets/Resources/tk2d/*
+</code></pre>
+
+<h2>After updating...</h2>
+
+<p>After updating / getting latest version from version control, make sure to <strong>"Rebuild Index"</strong>. This will rebuild the index and update any necessary runtime files. </p>
+</div></body></html></body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head><title>Importing a Font into a Sprite Collection</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Importing a Font into a Sprite Collection</h1>
+
+<p>You may import a font into a sprite collection should you wish to save on draw calls further. One limitation of importing a font like this is the "gradient" feature is unavailable when the font is imported in this manner.</p>
+
+<ol>
+<li><p>Create a new sprite collection and open the sprite collection editor, or open an existing one.</p></li>
+<li><p>Click on "Create > Font".</p>
+
+<p><img src="img/spritecollectionfont_1.png" alt="img/spritecollectionfont_1.png"></p></li>
+<li><p>Drag the bmfont xml or text file into the "BM Font" slot.</p></li>
+<li><p>Drag the font texture into the "Font texture" slot. If your texture isn't in the correct format to be read by the sprite collection editor, you will be presented with a prompt to fix this. </p>
+
+<blockquote>
+  <p>Keep in mind that this is a GLOBAL operation, and will affect all other instances of the font. If you intend on using the same font with the other method, it is a good idea to create a copy and import that into the sprite collection.</p>
+</blockquote></li>
+<li><p>If you don't have a data object, you will be shown a prompt to create one - click on "Create" and chose a target file to write to.</p>
+
+<p><img src="img/spritecollectionfont_2.png" alt="img/spritecollectionfont_2.png"></p></li>
+<li><p>Click "Commit". You should now be able to use this font just like any other font.</p></li>
+</ol>
+
+<p>You can add as many fonts as will fit into a sprite collection.</p>
+</div></body></html></body>
+</html>

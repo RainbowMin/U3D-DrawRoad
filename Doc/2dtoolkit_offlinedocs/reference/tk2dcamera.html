@@ -1,0 +1,85 @@
+<html>
+<head><title>tk2dCamera</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>tk2dCamera</h1>
+
+<h2>General</h2>
+
+<p><img src="img/tk2dCamera_general.png" alt="tk2dCamera_general"></p>
+
+<p><strong>Inherit config</strong> - Drop in another tk2dCamera to inherit native resolution, projection and override configuration. This is useful to keep multiple tk2dCameras in sync with one another, eg. when setting up parallax using multiple cameras.</p>
+
+<p><strong>Native resolution</strong> - The resolution your game is set up to run at natively.</p>
+
+<p><strong>Preview resolution</strong> - The preview resolution is detected where possible from the Unity game window resolution setting. If you have the game window set to an aspect ratio, or Free Aspect, the tk2dCamera will not be able to detect a resolution  and you will have to enter your preview resolution explicitly. It is easier to select the appropriate resolution in the game window. Best practice here is to simply set the game view resolution how you wish to preview the game.</p>
+
+<p><strong>Projection</strong> - Either Orthographic or Perspective. The tk2dCamera has limited support for perspective cameras, but has a useful helper function allowing you to set the sort mode directly from the interface.</p>
+
+<p><strong>Type</strong> - Available with orthographic projection. Either <strong>Pixels Per Meter</strong> or <strong>Orthographic Size</strong>. </p>
+
+<p><strong>Origin</strong> - Sets up the origin (0, 0) of the camera.</p>
+
+<p>Setting a <strong>pixels per meter</strong> setting of <strong>1</strong> and <strong>Origin</strong> to <strong>bottom left</strong> will make the tk2dCamera work exactly as it did in 2D Toolkit 2.0 and earlier.</p>
+
+<h2>Camera</h2>
+
+<p><img src="img/tk2dCamera_camera.png" alt="tk2dCamera_camera"></p>
+
+<p>This view is nearly identical to the Unity camera set-up.
+Refer to the <a href="http://docs.unity3d.com/Documentation/Components/class-Camera.html">Unity camera component documentation</a> for more information and a description of all the settings in here.</p>
+
+<h2>Overrides</h2>
+
+<p><img src="img/tk2dCamera_overrides.png" alt="tk2dCamera_overrides"></p>
+
+<p>When the tk2dCamera code runs at a different resolution to the native resolution - it uses resolution overrides tell it how to work at this new resolution. Resolution matching is performed from top to bottom in the list, and the first matching override is used.</p>
+
+<p><strong>Match By</strong> - Used to decide if the current resolution matches the override.</p>
+
+<p><strong>Wildcard</strong> - Matches any and all resolutions.
+  <strong>Resolution</strong> - Matches an exact resolution. Eg. type in 1024 x 768 if you want to match this override.
+  <strong>Aspect Ratio</strong> - Matches based on aspect ratio. Enter 16 : 9 to match all 16 : 9 resolutions (1280x720, etc).</p>
+
+<p>If a suitable override is NOT found for the current resolution, tk2dCamera will rescale the camera to display the contents pixel perfect.</p>
+
+<p><strong>Auto Scale</strong> - tells tk2dCamera how to rescale the "Native view" content to fit the preview resolution.</p>
+
+<ul>
+<li><p><em>None</em> - You specify an explicit scale</p></li>
+<li><p><em>Fit width</em> - The camera will attempt to fit the width. The camera might overflow vertically.</p></li>
+<li><p><em>Fit height</em> - The camera will fit the height. The camera might overflow horizontally.</p></li>
+<li><p><em>Fit visible</em> - Fit the larger axis. The entire image (based on native resolution) will always be visible.</p></li>
+<li><p><em>Stretch to fit</em> - Non-uniformly scales the native resolution to fit the preview resolution. Everything will ALWAYS be visible, but may be stretched.</p></li>
+<li><p><em>Closest multiple of two</em> - Limits the scaling to multiples of two. This will help you maintain a blocky look for your game if you so desire.</p></li>
+<li><p><em>Pixel perfect</em> - No scaling is performed, 1 pixel in the native resolution will map to exactly one pixel in the preview resolution. You may display more or less information than the native resolution.</p></li>
+</ul>
+
+<p><strong>Fit Mode</strong> - Either centers the result, or offsets it. Leave at default values, unless you need to handle a particular resolution differently.</p>
+
+<p>The image below demonstrates the different auto-scale settings - the game is initially set up with a native resolution of 1024x768 and previewed at 960x640 with various auto-scale settings.</p>
+
+<p><img src="img/tk2dCamera_override_description.png" alt="tk2dCamera<em>override</em>description"></p>
+
+<h2>Advanced</h2>
+
+<p><img src="img/tk2dCamera_advanced.png" alt="tk2dCamera_advanced"></p>
+
+<p><strong>Anchored viewport clipping</strong> - When enabled, and prerequisites met (another unclipped camera is present in the scene, and this camera inherits configuration from the main one), will allow you to set up viewport clipping by entering native resolution coordinates. This means that the clipping region will remain correct regardless of override.</p>
+
+<h3>Known issues</h3>
+
+<p>There is a known issue with Unity 4.0 and 4.1 currently, where lit shaders don't light correctly in game view. This is a bug in Unity which has been fixed, and will likely make it into the next version. This bug isn't present in Unity 3.5.7.</p>
+</div></body></html></body>
+</html>

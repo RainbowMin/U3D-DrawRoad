@@ -1,0 +1,44 @@
+<html>
+<head><title>Preparing a Font</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Preparing a Font</h1>
+
+<p>A Font imports a text BMFont exported from the excellent <a href="http://www.angelcode.com/products/bmfont/">BMFont</a> program . You can also use <a href="http://slick.cokeandcode.com/demos/hiero.jnlp|Hiero">Hiero</a> on Mac or Windows if you prefer. 2D Toolkit has also been tested with <a href="http://glyphdesigner.71squared.com/">Glyph Designer</a>.</p>
+
+<p>2d Toolkit supports both xml and text font formats. The only limitation is that it only supports a single page of textures. The maximum ASCII character imported is set to 128 by default. You can increase this on the Font object if additional characters are necessary.</p>
+
+<blockquote>
+  <p>2D Toolkit can also import a font directly into a sprite collection. The advantage of doing it this way is that the font will be able to batch with the rest of your sprites. Refer to this document on how to create embedded fonts. "<a href="importing_a_font_into_a_sprite_collection.html">Importing a font into a sprite collection</a>"</p>
+</blockquote>
+
+<p>For best results, use the following settings:</p>
+
+<p><strong>BMFont</strong> - Export options: 32 bit, Channels A - outline, RGB - one (no outline) or glyph (when an outline has been set up).</p>
+
+<p><strong>Hiero</strong> - In Gylph Cache, Set page width and height so you end up with 1 page exactly. Increase padding around characters.</p>
+
+<ol>
+<li><p>Create a Font by clicking on "Create > tk2d > Font" in the Project Window. This is ideally done in the same directory the font was exported to in the previous stage, but doesn't have to be. Rename it to TutorialFont.</p>
+
+<p><img src="img/CreateFont.png" alt="CreateFont"></p></li>
+<li><p>Assign the xml / text font and texture to the Font object. <em>*From version 1.51 it is not necessary to create a material. 2D Toolkit will automatically create a material for you if one doesn't exist. *</em></p>
+
+<p><img src="img/DragFontData.png" alt="DragFontData"></p></li>
+<li><p>Click Commit. You can now use this font in TextMeshes within your scene.</p>
+
+<p><img src="img/FontCommit.png" alt="FontCommit"></p></li>
+</ol>
+</div></body></html></body>
+</html>
