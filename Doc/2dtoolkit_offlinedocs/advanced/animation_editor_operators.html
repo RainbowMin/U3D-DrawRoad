@@ -1,0 +1,91 @@
+<html>
+<head><title>Animation Editor Operators</title></head>
+<body>
+<html><head><title>$title</title><link rel="stylesheet" type="text/css" href="../style.css"></head><body><div id="navbar">
+<span class="align-logo">
+<img src="../logo.png">
+</span>
+<a href="http://www.unikronsoftware.com/2dtoolkit">Home</a>
+<img src="../dot.png">
+<a href="../index.html">Documentation</a>
+<img src="../dot.png">
+<a href="../html/annotated.html">Script Reference</a>
+<img src="../dot.png">
+<a href="http://www.unikronsoftware.com/2dtoolkit/forum">Forum</a>
+</div>
+<div id="pagewrapper"><h1>Animation Editor Operators</h1>
+
+<p>Animation editor operators is a powerful plugin system built into the animation editor. It can be used to extend the animation editor without having to change the source code to the editor - the only requirement is that your animation editor class inherits from the base operator class (tk2dEditor.SpriteAnimationEditor.AnimOperator), and that it exists within an Editor folder.</p>
+
+<p>You can use animation operators to streamline workflow specifically for your project, without having to hack into 2D Toolkit code.</p>
+
+<p>A large number of the built in operators are implemented using the same system. Refer to tk2dSpriteAnimationAnimOp.cs for the complete list.</p>
+
+<p>A sample operator -
+This is exactly the same as the built in Insert operator, but will add itself after all the built in operators. This file should be dropped into an editor folder for it to work.</p>
+
+<p><img src="img/customoperator.png" alt="Animation Operator"></p>
+
+<div class="codefile"><a href="code/SampleInsertAnimOp.cs">code/SampleInsertAnimOp.cs</a></div>
+
+<div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">using</span> UnityEngine;
+<span style="color:Blue;">using</span> UnityEditor;
+<span style="color:Blue;">using</span> System.Collections;
+<span style="color:Blue;">using</span> System.Collections.Generic;
+
+<span style="color:Green;">// It is advisible to keep your code within this namespace to avoid name collisions</span>
+<span style="color:Green;">// It isn't essential though.</span>
+<span style="color:Blue;">namespace</span> tk2dEditor.SpriteAnimationEditor
+{
+    <span style="color:Blue;">public</span> <span style="color:Blue;">class</span> SampleInsert : AnimOperator
+    {
+        <span style="color:Blue;">public</span> SampleInsert()
+        {
+            <span style="color:Green;">// SortID defines the order in which the operators are processed, and drawn in the inspector.</span>
+            <span style="color:Green;">// Negative numbers are reserved for the editor and may change without warning.</span>
+            sortId = 100;
+        }
+
+        <span style="color:Green;">// Check the AnimOperator class for the different supported operator types.</span>
+        <span style="color:Green;">// This sample simply deletes the frames after the currently selected clip.</span>
+        <span style="color:Blue;">public</span> <span style="color:Blue;">override</span> <span style="color:Blue;">bool</span> OnFrameGroupInspectorGUI(tk2dSpriteAnimationClip selectedClip, 
+                    List&lt;ClipEditor.FrameGroup&gt; frameGroups, 
+                    TimelineEditor.State state )
+        {
+            <span style="color:Green;">// WrapMode.Single is a special case - you are only allowed to have one frame in a &quot;Single&quot; clip.</span>
+            <span style="color:Green;">// If you don't handle this, tk2d will truncate the list when it is Committed.</span>
+            <span style="color:Blue;">if</span> (selectedClip.wrapMode == tk2dSpriteAnimationClip.WrapMode.Single)
+                <span style="color:Blue;">return</span> <span style="color:Blue;">false</span>;
+
+            <span style="color:Green;">// Keep track of changes.</span>
+            <span style="color:Green;">// In a lot of cases, a simple bool will suffice. This is used later to </span>
+            <span style="color:Green;">// tell the system that something has changed.</span>
+            <span style="color:Blue;">bool</span> changed = <span style="color:Blue;">false</span>;
+            GUILayout.BeginHorizontal();
+            <span style="color:Blue;">if</span> (GUILayout.Button(<span style="color:#A31515;">&quot;Ins &lt;-&quot;</span>, EditorStyles.miniButton)) 
+            { 
+                frameGroups.Insert(state.selectedFrame, 
+                    AnimOperatorUtil.NewFrameGroup(frameGroups, state.selectedFrame)); 
+                <span style="color:Green;">// Make sure state is valid after performing your operation.</span>
+                <span style="color:Green;">// For instance, if the selected frame is deleted, ensure it isn't selected any more.</span>
+                state.selectedFrame++; 
+                changed = <span style="color:Blue;">true</span>;
+            }
+            <span style="color:Blue;">if</span> (GUILayout.Button(<span style="color:#A31515;">&quot;Ins -&gt;&quot;</span>, EditorStyles.miniButton)) 
+            { 
+                frameGroups.Insert(state.selectedFrame + 1, 
+                    AnimOperatorUtil.NewFrameGroup(frameGroups, state.selectedFrame));
+                changed = <span style="color:Blue;">true</span>;
+            }
+            GUILayout.EndHorizontal();
+
+            <span style="color:Green;">// Tell the caller what has changed</span>
+            operations = changed ? AnimEditOperations.ClipContentChanged : AnimEditOperations.None;
+            <span style="color:Blue;">return</span> changed;
+        }       
+    }
+}
+</pre></div>
+</div></body></html></body>
+</html>
